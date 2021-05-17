@@ -7,7 +7,7 @@ import person from 'assets/person.jpg'
 const StyledWrapper = styled(Wrapper)`
     width: auto;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
     padding: 20px 20px;
     border-radius: 10px;
     background-color: #fff;

@@ -14,7 +14,7 @@ const StyledIcon = styled.div`
 const StyledWrapper = styled(Wrapper)`
     background-color: none;
     align-items: center;
-    width: 24%;
+    width: 25%;
     justify-content: flex-end;
 `;
 

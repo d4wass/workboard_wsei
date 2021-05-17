@@ -12,13 +12,15 @@ const StyledWrapper = styled.button`
     cursor: pointer;
 `
 type ButtonProps = {
-    icon: string
+    icon?: string,
+    children?: string
 }
 
-const Button: React.FC<ButtonProps> = ({icon}) => (
+const Button: React.FC<ButtonProps> = ({icon, children}) => (
     <StyledWrapper>
         {icon === 'Network' && <NetworkBtn />}
         {icon === 'Publications' && <Plus />}
+        {children}
     </StyledWrapper>
 )
 
