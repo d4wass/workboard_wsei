@@ -14,6 +14,7 @@ interface ILastestPublications {
 const StyledWrapper = styled(Wrapper)<{ column?: boolean, children?: any }>`
     padding: 30px;
     max-height: 480px;
+    width: 80vw;
 `;
 
 const StyledContentWrapper = styled(Wrapper)<{ column?: boolean, children?: any, full?: boolean }>`
@@ -22,6 +23,7 @@ const StyledContentWrapper = styled(Wrapper)<{ column?: boolean, children?: any,
     padding: ${({ column }) => column ? '20px' : 0};
     justify-content: ${({ column }) => column && 'space-between'};
     max-width: ${({ full }) => full && '480px'};
+    width: 100%;
 `;
 
 const StyledButton = styled(Button)`

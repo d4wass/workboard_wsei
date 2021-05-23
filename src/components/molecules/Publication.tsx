@@ -19,7 +19,7 @@ type TStyledElem = {
     info?: boolean
 }
 
-const StyledWrapper = styled(Wrapper) <TStyledElem>`
+const StyledWrapper = styled(Wrapper)<TStyledElem>`
     flex-direction: row;
     width: 100%;
     margin-bottom: 15px;

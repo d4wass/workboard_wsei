@@ -1,16 +1,22 @@
 import React, { useEffect } from 'react';
 import SiteTemplate from 'templates/SiteTemplate';
 import LastestPublications from 'components/organism/LastestPublications'
+import Resume from 'components/organism/Resume'
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 import { FetchDispatchType, DispatchTypeAction } from 'app/actions/actionTypes';
 import { fetchDataUsers } from 'app/actions/actions';
+import Workspaces from 'components/organism/Workspaces';
+import { Wrapper } from 'utils/Components';
+import styled from 'styled-components'
 
 interface IHome {
     children?: React.ReactNode,
     lastestPublications: any,
     fetchUserData: () => Promise<void>,
-    loading: boolean
+    loading: boolean,
+    users: any,
+    comments: any,
 }
 
 interface MapDispatchToPropsTypes {
@@ -31,7 +37,12 @@ interface MapStateToPropsTypes {
     // loading: boolean
 }
 
-const Home: React.FC<IHome> = ({ fetchUserData, lastestPublications, loading }) => {
+const StyledWrapper = styled(Wrapper)`
+    flex-direction: column;
+    width: 80vw;
+`
+
+const Home: React.FC<IHome> = ({ fetchUserData, lastestPublications, loading, comments, users }) => {
 
     useEffect(() => {
         const getData = async () => await fetchUserData()
@@ -40,7 +51,11 @@ const Home: React.FC<IHome> = ({ fetchUserData, lastestPublications, loading }) 
 
     return (
         <SiteTemplate>
-           {!loading && lastestPublications.length > 0 ? <LastestPublications lastestPublications={lastestPublications}/> : <h1>Loading</h1>} 
+            <StyledWrapper>
+                {!loading && lastestPublications.length > 0 ? <LastestPublications lastestPublications={lastestPublications} /> : <h1>Loading</h1>}
+                <Workspaces />
+                <Resume loading={loading} users={users} comments={comments}/>
+            </StyledWrapper>
         </SiteTemplate>
     )
 };
@@ -53,7 +68,7 @@ const mapDispatchToProps = (dispatch: any) => ({
 
 const mapStateToProps = (state: any) => {
 
-    const { users, photos, posts, loading } = state
+    const { users, photos, posts, loading, comments } = state
     let lastestPublications: Array<TLastPublication> = [];
 
     users.forEach(
@@ -66,7 +81,7 @@ const mapStateToProps = (state: any) => {
         })
     );
 
-    return { lastestPublications, loading };
+    return { lastestPublications, loading, comments, users };
 };
 
 export default connect<MapStateToPropsTypes, MapDispatchToPropsTypes>(mapStateToProps, mapDispatchToProps)(Home);

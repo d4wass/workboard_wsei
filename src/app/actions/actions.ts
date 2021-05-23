@@ -3,6 +3,7 @@ import { AnyAction, Dispatch } from 'redux';
 import { FetchDispatchType, Constants } from 'app/actions/actionTypes'
 
 
+
 export const fetchDataUsers = () => (dispatch: Dispatch) => {
     dispatch({ type: Constants.FETCH_DATA_REQUEST })
     return axios

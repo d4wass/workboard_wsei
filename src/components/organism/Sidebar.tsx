@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import UserPanel from 'components/molecules/UserPanel';
 
 const StyledWrapper = styled.div`
-    width: 20%;
+    width: 20vw;
     padding: 30px;
 `
 
