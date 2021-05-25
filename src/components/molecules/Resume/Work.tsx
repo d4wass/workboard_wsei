@@ -2,6 +2,14 @@ import * as React from 'react';
 import styled from 'styled-components';
 import { Wrapper, Title, Paragraph } from 'utils/Components';
 
+type WorkDataType = {
+    postId: number,
+    id: number,
+    name: string,
+    email: string,
+    body: string
+}
+
 const StyledWrapper = styled(Wrapper)`
     flex-direction: column;
     box-shadow: 0 8px 6px -6px #ccc;
@@ -11,17 +19,29 @@ const StyledWrapper = styled(Wrapper)`
     background-color: ${({theme}) => theme.color.white};
 `;
 
-const StyledContentWrapper = styled(Wrapper)``
+const StyledContentWrapper = styled(Wrapper)`
+    padding-top: 20px;
+`
 
-const Work = () => (
-    <StyledWrapper>
-        <Title>World company sas</Title>
-        <Paragraph>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Unde modi excepturi nam fugiat enim totam aut officia magni aliquid, at ab corporis alias quisquam sit quis ratione rem cum cupiditate.</Paragraph>
-        <StyledContentWrapper>
-            {/* tutaj idzie komponent dane pobierane z api zdjęcie osoba  */}
-        </StyledContentWrapper>
-    </StyledWrapper>
+const StyledSpan = styled.span`
+    color: ${({ theme }) => theme.color.grey};
+    font-size: ${({ theme }) => theme.font.weight.bold};
+`;
 
+const Work = ({ data, user }: { data: WorkDataType[], user: string }) => (
+    <>
+        {data.map(({name, email, body}) => (
+            <StyledWrapper>
+                <Title>{name}</Title>
+                <Paragraph>{body}</Paragraph>
+                <StyledContentWrapper>
+                    <StyledSpan>
+                        {user}
+                    </StyledSpan>
+                </StyledContentWrapper>
+            </StyledWrapper>
+        ))}
+    </>
 );
 
 export default Work;

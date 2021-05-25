@@ -29,12 +29,12 @@ const StyledContentWrapper = styled(Wrapper)`
 
 const Resume = ({ loading, comments, users}: ResumeType) => {
 
-    const [usersPosts, setUsersPosts] = useState<CombineArrayType[]>([])
-    
+    const [usersPosts, setUsersPosts] = useState<CombineArrayType[]>([]);
+
     useEffect(() => {
         console.log('działa');
         let combineArray: Array<CombineArrayType> = [];
-            
+
         users.forEach(
             (item: any, index: number) => combineArray.push({
                 userName: item.name,
@@ -43,14 +43,14 @@ const Resume = ({ loading, comments, users}: ResumeType) => {
             })
         )
         setUsersPosts(combineArray)
-        
+
     }, [loading, comments, users]);
 
     return (
         <StyledWrapper>
             <Heading />
             <StyledContentWrapper>
-                {!loading && usersPosts.length > 0 ? (usersPosts.map(item => (<Work />))) : <h1>Loading</h1>}
+                {!loading && usersPosts.length > 0 ? (usersPosts.map(({userName, posts, userId}) => (<Work key={userId} user={userName} data={posts}/>))) : <h1>Loading</h1>}
             </StyledContentWrapper>
         </StyledWrapper>
     )
