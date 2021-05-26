@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, {useState, useEffect} from 'react';
 import styled from 'styled-components';
 import { Wrapper, Title, Paragraph } from 'utils/Components';
 
@@ -28,20 +28,18 @@ const StyledSpan = styled.span`
     font-size: ${({ theme }) => theme.font.weight.bold};
 `;
 
-const Work = ({ data, user }: { data: WorkDataType[], user: string }) => (
-    <>
-        {data.map(({name, email, body}) => (
+const Work = ({ data, user }: { data: WorkDataType, user: string }) => {
+
+    return (
             <StyledWrapper>
-                <Title>{name}</Title>
-                <Paragraph>{body}</Paragraph>
+            <Title>{data.name}</Title>
+                <Paragraph>{data.body}</Paragraph>
                 <StyledContentWrapper>
                     <StyledSpan>
                         {user}
                     </StyledSpan>
                 </StyledContentWrapper>
             </StyledWrapper>
-        ))}
-    </>
-);
+)};
 
 export default Work;

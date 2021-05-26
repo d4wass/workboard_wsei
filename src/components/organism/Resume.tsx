@@ -14,7 +14,15 @@ type ResumeType = {
 type CombineArrayType = {
     userName: string,
     userId: number,
-    posts: any
+    posts: WorkDataType[]
+}
+
+type WorkDataType = {
+    postId: number,
+    id: number,
+    name: string,
+    email: string,
+    body: string
 }
 
 const StyledWrapper = styled(Wrapper)`
@@ -29,20 +37,27 @@ const StyledContentWrapper = styled(Wrapper)`
 
 const Resume = ({ loading, comments, users}: ResumeType) => {
 
-    const [usersPosts, setUsersPosts] = useState<CombineArrayType[]>([]);
+    const [usersData, setUsersData] = useState<CombineArrayType[]>([]);
+    const [posts, setPosts] = useState<WorkDataType[]>([])
 
     useEffect(() => {
         console.log('działa');
         let combineArray: Array<CombineArrayType> = [];
+        let combinePost: Array<WorkDataType> = []
 
         users.forEach(
             (item: any, index: number) => combineArray.push({
                 userName: item.name,
                 userId: item.id,
-                posts: comments.filter((item: { postId: number, id: number, name: string, email: string, body: string}) => item.postId === index+1)
+                posts: comments.filter((item: { postId: number, id: number, name: string, email: string, body: string}) => item.postId === index + 1)
             })
         )
-        setUsersPosts(combineArray)
+
+        combineArray.forEach(({ posts }) => combinePost.push(...posts));
+
+        setUsersData(combineArray)
+        setPosts(combinePost);
+
 
     }, [loading, comments, users]);
 
@@ -50,7 +65,7 @@ const Resume = ({ loading, comments, users}: ResumeType) => {
         <StyledWrapper>
             <Heading />
             <StyledContentWrapper>
-                {!loading && usersPosts.length > 0 ? (usersPosts.map(({userName, posts, userId}) => (<Work key={userId} user={userName} data={posts}/>))) : <h1>Loading</h1>}
+                {!loading && usersData.length > 0 ? (posts.map((item, index) => (<Work data={item} user={usersData[0].userName} key={item.postId}/>))) : <h1>Loading</h1>}
             </StyledContentWrapper>
         </StyledWrapper>
     )
