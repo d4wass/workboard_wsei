@@ -11,7 +11,7 @@ interface IDropdownList {
 }
 
 type TStyledNavigation = {
-    isOpen: boolean;
+    isopen: boolean;
 }
 
 const StyledNavigation = styled.div<TStyledNavigation>`
@@ -27,7 +27,7 @@ const StyledNavigation = styled.div<TStyledNavigation>`
 const StyledNavbarList = styled.ul<TStyledNavigation>`
     position: absolute;
   top: 58px;
-  visibility: ${({isOpen}) => isOpen ? 'visible' : 'hidden'};
+  visibility: ${({isopen}) => isopen ? 'visible' : 'hidden'};
   background-color: #fff;
   padding: 1rem;
   width: 100%;
@@ -46,11 +46,11 @@ const StyledNavItem = styled.li`
 
 const StyledDownArrow = styled(DownArrow)`
     transition: all 0.3s ease-in-out;
-    transform: ${({isOpen}) => isOpen ? 'rotateX(180deg)' : 'rotateX(0deg)'};
+    transform: ${({isopen}) => isopen ? 'rotateX(180deg)' : 'rotateX(0deg)'};
 `;
 
 const DropdownList: React.FC<IDropdownList> = () => {
-    
+
     const [isOpen, setOpen] = useState<boolean>(false);
     const [isActive, setActive] = useState<string>("")
 
@@ -63,7 +63,7 @@ const DropdownList: React.FC<IDropdownList> = () => {
 
     useEffect(() => {
         const pathname: string = window.location.pathname.replace('/', '');
-    
+
         if (pathname === '') {
             getActivePath('Home');
         } else {
@@ -73,16 +73,16 @@ const DropdownList: React.FC<IDropdownList> = () => {
 
     return (
         <>
-            <StyledNavigation isOpen={isOpen} >
+            <StyledNavigation isopen={isOpen} >
                 <StyledNavItem onClick={handleOpen}>
                     <Wrapper>
                         <NavItemSVG namePage={isActive}/>
                         {isActive}
                     </Wrapper>
-                    <StyledDownArrow isOpen={isOpen}/>
+                    <StyledDownArrow isopen={isOpen}/>
                 </StyledNavItem>
             </StyledNavigation>
-            <StyledNavbarList isOpen={isOpen} >
+            <StyledNavbarList isopen={isOpen} >
                 {isOpen && routes.map(item => (
                     <StyledNavItem>
                         <SelectItem path={item.to} >{item.name}</SelectItem>

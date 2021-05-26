@@ -7,11 +7,18 @@ import Input from 'components/molecules/Input';
 const StyledWrapper = styled(Wrapper)`
     justify-content: space-between;
     width: 100%;
-
+    padding-bottom: 20px;
+    align-items: center;
 `;
 
 const StyledContentWrapper = styled(Wrapper)`
-    
+    width: 50%;
+    justify-content: flex-end;
+`;
+
+const StyledTitle = styled(Title)`
+    width: 50%;
+    margin: 0;
 `;
 
 const StyledInput = styled(Input)`
@@ -20,7 +27,7 @@ const StyledInput = styled(Input)`
 
 const Heading = () => (
     <StyledWrapper>
-        <Title>Resume your work</Title>
+        <StyledTitle>Resume your work</StyledTitle>
         <StyledContentWrapper>
             <StyledInput label="Filter by title" type="text" />
         </StyledContentWrapper>

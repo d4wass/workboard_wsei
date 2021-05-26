@@ -7,6 +7,10 @@ const StyledLogo = styled.img`
     width: auto;
 `
 
-const Logo: React.FC = () => <StyledLogo src={logo} alt="company logo" />
+const Logo: React.FC = () => (
+    <a href="/">
+        <StyledLogo src={logo} alt="company logo" />
+    </a>
+)
 
 export default Logo;

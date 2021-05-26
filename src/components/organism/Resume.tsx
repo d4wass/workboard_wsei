@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { Wrapper } from 'utils/Components';
 import Heading from 'components/molecules/Resume/Heading';
 import Work from 'components/molecules/Resume/Work';
+import Pagination from 'components/molecules/Resume/Pagination';
 
 type ResumeType = {
     children?: React.ReactNode,
@@ -40,8 +41,37 @@ const Resume = ({ loading, comments, users}: ResumeType) => {
     const [usersData, setUsersData] = useState<CombineArrayType[]>([]);
     const [posts, setPosts] = useState<WorkDataType[]>([])
 
+    const [currentPage, setCurrentPage] = useState<number>(1);
+    const [postsPerPage, setPostsPerPage] = useState<number>(5);
+
+    //Get current posts
+    const indexOflastPost = currentPage * postsPerPage;
+    const indexOfFirstPost = indexOflastPost - postsPerPage;
+    const currentPosts = posts.slice(indexOfFirstPost, indexOflastPost);
+
+    //Change page
+    const paginate = (pageNumber: number) => setCurrentPage(pageNumber)
+
+    const nextPage = (pages: number) => {
+        console.log(currentPage)
+        if (currentPage === pages) {
+            setCurrentPage(1)
+        } else if (currentPage < pages) {
+            setCurrentPage(currentPage + 1)
+        }
+    }
+    const prevPage = (pages: number) => {
+        console.log(pages)
+        console.log(currentPage)
+
+        if (currentPage === 1) {
+            setCurrentPage(pages)
+        } else if (currentPage <= pages) {
+            setCurrentPage(currentPage - 1)
+        }
+    }
+
     useEffect(() => {
-        console.log('działa');
         let combineArray: Array<CombineArrayType> = [];
         let combinePost: Array<WorkDataType> = []
 
@@ -55,9 +85,8 @@ const Resume = ({ loading, comments, users}: ResumeType) => {
 
         combineArray.forEach(({ posts }) => combinePost.push(...posts));
 
-        setUsersData(combineArray)
+        setUsersData(combineArray);
         setPosts(combinePost);
-
 
     }, [loading, comments, users]);
 
@@ -65,7 +94,8 @@ const Resume = ({ loading, comments, users}: ResumeType) => {
         <StyledWrapper>
             <Heading />
             <StyledContentWrapper>
-                {!loading && usersData.length > 0 ? (posts.map((item, index) => (<Work data={item} user={usersData[0].userName} key={item.postId}/>))) : <h1>Loading</h1>}
+                {!loading && usersData.length > 0 ? (currentPosts.map((item) => (<Work data={item} user={usersData[0].userName} key={item.id} />))) : <h1>Loading</h1>}
+                <Pagination postsPerPage={postsPerPage} totalPosts={posts.length} paginate={paginate} nextPage={nextPage} prevPage={prevPage}/>
             </StyledContentWrapper>
         </StyledWrapper>
     )

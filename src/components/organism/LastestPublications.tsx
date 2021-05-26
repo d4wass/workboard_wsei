@@ -27,7 +27,7 @@ const StyledContentWrapper = styled(Wrapper)<{ column?: boolean, children?: any,
 `;
 
 const StyledButton = styled(Button)`
-    border: none;  
+    border: none;
 `;
 
 const LastestPublications: React.FC<ILastestPublications> = ({ lastestPublications }) => (
@@ -40,12 +40,13 @@ const LastestPublications: React.FC<ILastestPublications> = ({ lastestPublicatio
                     userName={lastestPublications[0].userName}
                     userImage={lastestPublications[0].userImage}
                     />
-                    : <h1>Loading</h1>}          
+                    : <h1>Loading</h1>}
             </StyledContentWrapper>
             <StyledContentWrapper column>
                 <Title>Lastest Publications</Title>
-                {lastestPublications.length > 0 ? lastestPublications.map((item: any, index: number) => 
+                {lastestPublications.length > 0 ? lastestPublications.map((item: any, index: number) =>
                     index >= 3 ? null : (<Publication
+                            key={index}
                             image={item.image}
                             title={item.title}
                             imageAlt={item.imageAlt}
