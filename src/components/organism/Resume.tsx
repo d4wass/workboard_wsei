@@ -42,7 +42,7 @@ const Resume = ({ loading, comments, users}: ResumeType) => {
     const [posts, setPosts] = useState<WorkDataType[]>([])
 
     const [currentPage, setCurrentPage] = useState<number>(1);
-    const [postsPerPage, setPostsPerPage] = useState<number>(5);
+    const [postsPerPage] = useState<number>(5);
 
     //Get current posts
     const indexOflastPost = currentPage * postsPerPage;
@@ -94,7 +94,7 @@ const Resume = ({ loading, comments, users}: ResumeType) => {
         <StyledWrapper>
             <Heading />
             <StyledContentWrapper>
-                {!loading && usersData.length > 0 ? (currentPosts.map((item) => (<Work data={item} user={usersData[0].userName} key={item.id} />))) : <h1>Loading</h1>}
+                {!loading && usersData.length > 0 ? (currentPosts.map((item) => (<Work data={item} user={usersData[item.postId - 1].userName} key={item.id} imageId={usersData[item.postId - 1].userId}/>))) : <h1>Loading</h1>}
                 <Pagination postsPerPage={postsPerPage} totalPosts={posts.length} paginate={paginate} nextPage={nextPage} prevPage={prevPage}/>
             </StyledContentWrapper>
         </StyledWrapper>

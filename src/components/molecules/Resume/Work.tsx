@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from 'react';
+import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { Wrapper, Title, Paragraph } from 'utils/Components';
 
@@ -21,25 +22,56 @@ const StyledWrapper = styled(Wrapper)`
 
 const StyledContentWrapper = styled(Wrapper)`
     padding-top: 20px;
+    align-items: center;
+    justify-content: space-between;
 `
+
+const StyledImage = styled.img<{image: string}>`
+    background-image: ${({image}) => `url(${image})`};
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+`;
 
 const StyledSpan = styled.span`
     color: ${({ theme }) => theme.color.grey};
     font-size: ${({ theme }) => theme.font.weight.bold};
+    margin-left: 10px;
 `;
 
-const Work = ({ data, user }: { data: WorkDataType, user: string }) => {
+type MapStateToPropsTypes = {
+    // Your properties here
+    // lastestPublications: Array<TLastPublication>,
+    // loading: boolean
+}
 
+
+const Work = ({ data, user, photos, imageId }: { data: WorkDataType, user: string, photos?: any, imageId: number }) => {
+    const [userPhotos] = useState<any>(photos);
     return (
             <StyledWrapper>
             <Title>{data.name}</Title>
                 <Paragraph>{data.body}</Paragraph>
                 <StyledContentWrapper>
-                    <StyledSpan>
-                        {user}
-                    </StyledSpan>
+                    <StyledContentWrapper>
+                    <StyledImage image={userPhotos[imageId - 1].url}/>
+                        <StyledSpan>
+                            {user}
+                        </StyledSpan>
+                    </StyledContentWrapper>
+                    <StyledContentWrapper>
+                        <StyledSpan>
+                            update 3 days ago
+                        </StyledSpan>
+                    </StyledContentWrapper>
                 </StyledContentWrapper>
             </StyledWrapper>
-)};
+    )
+};
 
-export default Work;
+const mapStateToProps = (state: any) => {
+    const { photos } = state;
+    return { photos };
+}
+
+export default connect<MapStateToPropsTypes>(mapStateToProps)(Work);

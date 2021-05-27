@@ -9,6 +9,7 @@ import { fetchDataUsers } from 'app/actions/actions';
 import Workspaces from 'components/organism/Workspaces';
 import { Wrapper } from 'utils/Components';
 import styled from 'styled-components'
+import { Action } from 'typesafe-actions';
 
 interface IHome {
     children?: React.ReactNode,
@@ -59,8 +60,6 @@ const Home: React.FC<IHome> = ({ fetchUserData, lastestPublications, loading, co
         </SiteTemplate>
     )
 };
-
-
 
 const mapDispatchToProps = (dispatch: any) => ({
     fetchUserData: () => dispatch(fetchDataUsers())
