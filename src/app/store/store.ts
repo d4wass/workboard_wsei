@@ -7,4 +7,5 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 const thunk = applyMiddleware(thunkMiddleware);
 const store = createStore(rootReducer, composeWithDevTools(thunk));
 
+export type AppState = ReturnType<typeof rootReducer>
 export default store;

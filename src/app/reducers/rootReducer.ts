@@ -47,6 +47,24 @@ export const rootReducer = (state: IinitialState = initialState, action: TAction
                 loading: false,
                 error: [...state.error, action.payload.error],
             };
+        case Constants.FETCH_USERS_REQUEST:
+            return {
+                ...state,
+                loading: true
+            }
+        case Constants.FETCH_USERS_SUCCESS:
+            return {
+                ...state,
+                users: action.payload.users,
+                photos: action.payload.photos,
+                loading: false
+            }
+        case Constants.FETCH_USERS_FAILURE:
+            return {
+                ...state,
+                loading: false,
+                error: [...state.error, action.payload.error],
+            };
         default:
             return state;
     }

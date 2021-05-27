@@ -42,3 +42,34 @@ export const fetchDataUsers = () => (dispatch: Dispatch) => {
         });
 }
 
+export const fetchUsers = () => (dispatch: Dispatch) => {
+    dispatch({ type: Constants.FETCH_USERS_REQUEST });
+    return axios
+        .all([
+            axios.get('https://jsonplaceholder.typicode.com/users'),
+            axios.get('https://jsonplaceholder.typicode.com/photos'),
+        ])
+        .then(
+            axios.spread((...responses: AxiosResponse<any>[]) => {
+                const users = responses[0].data;
+                const photos = responses[1].data;
+
+                dispatch({
+                    type: Constants.FETCH_USERS_SUCCESS,
+                    payload: {
+                        users,
+                        photos
+                    }
+                })
+            })
+        )
+        .catch((error: any) => {
+            dispatch({
+                type: Constants.FETCH_USERS_FAILURE,
+                payload: {
+                    data: error
+                }
+            })
+        })
+}
+
