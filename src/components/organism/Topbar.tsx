@@ -24,8 +24,8 @@ const StyledContentWrapper = styled(Wrapper)`
 const Topbar: React.FC = () => (
     <StyledWrapper>
         <StyledContentWrapper>
-            <Logo />    
-            <Dropdown />    
+            <Logo />
+            <Dropdown />
         </StyledContentWrapper>
         <Input label="Search"/>
         <Notification />

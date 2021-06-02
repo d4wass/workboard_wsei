@@ -45,6 +45,7 @@ const Entities = () => {
         dispatch(fetchUsers())
     }, [dispatch]);
 
+    // const {users, photos} = useSelector<AppState, IUsersRed & IPhotos>((state: AppState) => ({...state.users, ...state.photos}))
     const users = useSelector((state: AppState) => state.users)
     const photos = useSelector((state: AppState) => state.photos)
     const userItem = users.map((user: TUser) => (<EntityItem user={user} key={user.id} photoUrl={photos[user.id - 1].url} />))

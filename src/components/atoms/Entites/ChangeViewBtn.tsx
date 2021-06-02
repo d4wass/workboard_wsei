@@ -33,8 +33,8 @@ const ChangeViewBtn = ({ handleView }: { handleView: () => void }) => {
     return (
         <StyledWrapper>
             <StyledButton
-                onClick={(e) => {
-                    console.log(e.target)
+                onClick={() => {
+                    console.log()
                     handleView()
                     handleActive()
                 }}
