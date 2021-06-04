@@ -12,7 +12,8 @@ export const theme = {
         semi: '500',
       },
     },
-    color: {
+  color: {
+        primaryBtn: '#0275d8',
         iconGrey: '#ced1d3',
         lightgrey: '#f5f7f9',
         white: '#fff',

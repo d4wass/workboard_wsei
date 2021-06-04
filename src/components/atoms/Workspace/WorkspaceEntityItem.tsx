@@ -13,11 +13,16 @@ const StyledWrapper = styled(Wrapper)`
     box-shadow: 0 4px 6px 0 hsla(0, 0%, 0%, 0.2);
     flex-direction: column;
     padding: 20px;
+    justify-content: space-between;
+    width: 100%;
+    max-width: calc(95% / 3);
+    background-color: ${({theme}) => theme.color.white};
 `;
 
 const StyledTitle = styled.h3`
     font-weight: ${({ theme }) => theme.color.darkblue};
     font-size: 2rem;
+    margin-bottom: 20px;
 `;
 
 const StyledParagraph = styled.p`
