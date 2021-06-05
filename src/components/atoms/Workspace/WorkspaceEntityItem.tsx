@@ -1,11 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Wrapper } from 'utils/Components';
+import { NavLink } from 'react-router-dom';
 
 type WorkspaceEntityItemType = {
     title: string,
     content: string,
-
+    link: string,
 }
 
 const StyledWrapper = styled(Wrapper)`
@@ -30,8 +31,8 @@ const StyledParagraph = styled.p`
     font-size: 1.4rem;
 `
 
-const WorkspaceEntityItem = ({title, content}: WorkspaceEntityItemType) => (
-    <StyledWrapper>
+const WorkspaceEntityItem = ({title, content, link}: WorkspaceEntityItemType) => (
+    <StyledWrapper as={NavLink} to={link}>
         <StyledTitle>{title}</StyledTitle>
         <StyledParagraph>{content}</StyledParagraph>
     </StyledWrapper>

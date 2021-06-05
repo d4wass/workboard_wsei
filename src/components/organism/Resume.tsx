@@ -4,8 +4,9 @@ import { Wrapper } from 'utils/Components';
 import Heading from 'components/molecules/Resume/Heading';
 import Work from 'components/molecules/Resume/Work';
 import Pagination from 'components/molecules/Resume/Pagination';
+import { withRouter, RouteComponentProps } from 'react-router';
 
-type ResumeType = {
+interface ResumeType extends RouteComponentProps {
     children?: React.ReactNode,
     loading: boolean,
     comments: any[],
@@ -26,8 +27,8 @@ type WorkDataType = {
     body: string
 }
 
-const StyledWrapper = styled(Wrapper)`
-    padding: 30px;
+const StyledWrapper = styled(Wrapper)<{pathname?: string}>`
+    padding: ${({pathname}) => pathname === '/' ? '30px' : '60px 0px'};
     width: 80vw;
     flex-direction: column;
 `;
@@ -36,7 +37,7 @@ const StyledContentWrapper = styled(Wrapper)`
     flex-direction: column;
 `
 
-const Resume = ({ loading, comments, users}: ResumeType) => {
+const Resume = ({ loading, comments, users, location}: ResumeType) => {
 
     const [usersData, setUsersData] = useState<CombineArrayType[]>([]);
     const [posts, setPosts] = useState<WorkDataType[]>([])
@@ -91,7 +92,7 @@ const Resume = ({ loading, comments, users}: ResumeType) => {
     }, [loading, comments, users]);
 
     return (
-        <StyledWrapper>
+        <StyledWrapper pathname={location.pathname}>
             <Heading />
             <StyledContentWrapper>
                 {!loading && usersData.length > 0 ? (currentPosts.map((item) => (<Work data={item} user={usersData[item.postId - 1].userName} key={item.id} imageId={usersData[item.postId - 1].userId}/>))) : <h1>Loading</h1>}
@@ -101,4 +102,4 @@ const Resume = ({ loading, comments, users}: ResumeType) => {
     )
 }
 
-export default Resume;
+export default withRouter<ResumeType, React.FunctionComponent<ResumeType>>(Resume);

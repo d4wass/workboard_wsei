@@ -1,7 +1,6 @@
 import * as React from 'react';
 import MainTemplate from 'templates/MainTemplate';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import { routes } from 'routes/routes';
 import Home from 'views/Home';
 import Entities from 'views/Entities';
 import People from 'views/People';

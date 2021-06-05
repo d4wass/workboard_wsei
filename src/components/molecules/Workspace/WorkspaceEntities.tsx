@@ -57,7 +57,7 @@ const WorkspaceEntities = () => {
             </StyledContentWrapper>
             {
                 isOpen && <StyledContentEntityWrapper>
-                {WorkspaceEntitiesData.map(({id, title, content}) => <WorkspaceEntityItem key={id} title={title} content={content}/>)}
+                    {WorkspaceEntitiesData.map(({ id, title, content, link }) => <WorkspaceEntityItem key={id} title={title} content={content} link={link}/>)}
             </StyledContentEntityWrapper>
             }
             <Resume loading={isLoading} comments={comments} users={users}/>
