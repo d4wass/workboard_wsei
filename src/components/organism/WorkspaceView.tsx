@@ -20,7 +20,6 @@ const WorkspaceView = () => {
     const [title, setTitle] = useState("");
     const [content, setContent] = useState("");
 
-
     useEffect(() => {
         Object.entries(state).map(([key, value]) => {
             if (key == "title") {
@@ -30,7 +29,6 @@ const WorkspaceView = () => {
             }
         })
     })
-
 
     return (
         <StyledWrapper>

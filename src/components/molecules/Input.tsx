@@ -50,12 +50,14 @@ interface IInput extends React.HTMLProps<JSX.Element>{
   type?: string,
   label?: string,
   name?: string,
-  required?: boolean
+  required?: boolean,
+  value?: string,
+  fnChange?: any
 }
 
-const Input = ({ type, label, name }:IInput) => (
+const Input = ({ type, label, name, value, fnChange }: IInput) => (
   <StyledWrapper>
-    <StyledInput type={type} name={name} required/>
+    <StyledInput type={type} name={name} value={value} onChange={(e: React.ChangeEvent<HTMLInputElement>) => fnChange(e)} required />
     <StyledLabel>{label}</StyledLabel>
   </StyledWrapper>
 );
