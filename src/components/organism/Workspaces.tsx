@@ -12,6 +12,7 @@ interface Iitem {
     lastUpdate: number,
     image: string,
     icon: any,
+    description: string
 }
 
 const StyledWrapper = styled(Wrapper) <{ column?: boolean }>`
@@ -49,6 +50,8 @@ const Workspaces: React.FC = () => (
                 image={item.image}
                 lastUpdate={item.lastUpdate}
                 icon={item.icon}
+                id={item.id}
+                description={item.description}
             />)}
         </StyledGridWrapper>
     </StyledWrapper>

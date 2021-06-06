@@ -2,6 +2,7 @@ export const WorkspacesData = [
     {
         id: 1,
         name: 'Workspace for Contracts',
+        description: 'Some additional description for user about 1 workspace',
         type: 'Contract',
         users: 200,
         lastUpdate: 4,
@@ -11,6 +12,7 @@ export const WorkspacesData = [
     {
         id: 2,
         name: 'Incognito Inc.',
+        description: 'Some additional description for user about 2 workspace',
         type: 'Corporate',
         users: 25,
         lastUpdate: 3,
@@ -20,6 +22,7 @@ export const WorkspacesData = [
     {
         id: 3,
         name: 'Client norms',
+        description: 'Some additional description for user about 3 workspace',
         type: 'Norms',
         users: 25,
         lastUpdate: 3,
@@ -29,6 +32,7 @@ export const WorkspacesData = [
     {
         id: 4,
         name: 'Working norms',
+        description: 'Some additional description for user about 4 workspace',
         type: 'Norms',
         users: 50,
         lastUpdate: 30,
@@ -38,6 +42,7 @@ export const WorkspacesData = [
     {
         id: 5,
         name: 'Client contract',
+        description: 'Some additional description for user about 5 workspace',
         type: 'Contract',
         users: 25,
         lastUpdate: 3,
@@ -47,6 +52,7 @@ export const WorkspacesData = [
     {
         id: 6,
         name: 'Client contract',
+        description: 'Some additional description for user about 6 workspace',
         type: 'Contract',
         users: 25,
         lastUpdate: 3,
@@ -56,6 +62,7 @@ export const WorkspacesData = [
     {
         id: 7,
         name: 'Client contract',
+        description: 'Some additional description for user about 7 workspace',
         type: 'Contract',
         users: 25,
         lastUpdate: 3,

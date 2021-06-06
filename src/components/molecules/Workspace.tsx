@@ -2,13 +2,16 @@ import * as React from 'react';
 import styled, {css} from 'styled-components';
 import WorkspaceIconText from 'components/atoms/Workspace/WorkspaceIconText';
 import { Title } from 'utils/Components';
+import { NavLink } from 'react-router-dom';
 
 interface IWorkspace {
     name?: string,
+    description: string,
     type?: string,
     users?: number,
     lastUpdate?: number,
     image?: string,
+    id: number,
     icon?: React.ReactNode,
 }
 
@@ -38,6 +41,8 @@ const StyledWrapper = styled.div`
     padding: 10px;
     width: 400px;
     height: 400px;
+    text-decoration: none;
+    color: black;
 `;
 
 const StyledIcon = styled(WorkspaceIconText)`
@@ -52,8 +57,11 @@ const StyledSpan = styled.span`
     margin-top: 20px;
 `;
 
-const Workspace = ({ name, type, users, lastUpdate, image, icon }: IWorkspace) => (
-    <StyledWrapper>
+const Workspace = ({ name, type, users, lastUpdate, image, icon, id, description }: IWorkspace) => (
+    <StyledWrapper as={NavLink} to={{
+        pathname: `workspace/${id}`,
+        state: {title: name, content: description}
+    }}>
         <StyledContentWrapper image={image} />
         <StyledContentWrapper info>
             <StyledContentWrapper>

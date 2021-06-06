@@ -5,7 +5,7 @@ import SiteTemplate from 'templates/SiteTemplate';
 
 const Publications: React.FC = () => (
     <SiteTemplate>
-        <WorkspaceView/>
+        <h1>Publications</h1>
     </SiteTemplate>
 );
 
