@@ -45,34 +45,52 @@ const Resume = ({ loading, comments, users, location}: ResumeType) => {
 
     const [currentPage, setCurrentPage] = useState<number>(1);
     const [postsPerPage] = useState<number>(5);
-
-    //Get current posts
+    //Get current posts - pagination
     const indexOflastPost = currentPage * postsPerPage;
     const indexOfFirstPost = indexOflastPost - postsPerPage;
-    const currentPosts = posts.slice(indexOfFirstPost, indexOflastPost);
+    const [currentPosts, setCurrentPosts] = useState<WorkDataType[]>([]);
 
     //Change page
-    const paginate = (pageNumber: number) => setCurrentPage(pageNumber)
+    const paginate = (pageNumber: number) => {
+        setCurrentPage(pageNumber)
+        setCurrentPosts(posts.slice(indexOfFirstPost, indexOflastPost))
+    }
 
     const nextPage = (pages: number) => {
         if (currentPage === pages) {
             setCurrentPage(1)
+            // setCurrentPosts(posts.slice(indexOfFirstPost, indexOflastPost))
         } else if (currentPage < pages) {
             setCurrentPage(currentPage + 1)
+            // setCurrentPosts(posts.slice(indexOfFirstPost, indexOflastPost))
         }
     }
 
     const prevPage = (pages: number) => {
         if (currentPage === 1) {
             setCurrentPage(pages)
+            // setCurrentPosts(posts.slice(indexOfFirstPost, indexOflastPost))
         } else if (currentPage <= pages) {
             setCurrentPage(currentPage - 1)
+            // setCurrentPosts(posts.slice(indexOfFirstPost, indexOflastPost))
         }
     }
 
     //HandleInput
     const handleInput = (ev: React.ChangeEvent<HTMLInputElement>) => {
         setInputValue(ev.target.value);
+        const filteredPosts = posts.filter(item => {
+            if (inputValue === "") {
+                return item;
+            } else if (item.name.toLowerCase().includes(inputValue.toLowerCase())) {
+                return item;
+            }
+        });
+        if (filteredPosts.length >= 5) {
+            setCurrentPosts(filteredPosts.slice(indexOfFirstPost, indexOflastPost))
+        } else {
+            setCurrentPosts(filteredPosts)
+        }
     }
 
     useEffect(() => {
@@ -91,21 +109,15 @@ const Resume = ({ loading, comments, users, location}: ResumeType) => {
 
         setUsersData(combineArray);
         setPosts(combinePost);
-
-    }, [loading, comments, users]);
+        setCurrentPosts(combinePost.slice(indexOfFirstPost, indexOflastPost));
+    }, [loading, comments, users, indexOfFirstPost, indexOflastPost]);
 
     return (
         <StyledWrapper pathname={location.pathname}>
             <Heading handleInput={handleInput} inputValue={inputValue}/>
             <StyledContentWrapper>
-                {!loading && usersData.length > 0 ? (currentPosts.filter(item => {
-            if (inputValue === "") {
-                return item;
-            } else if (item.name.toLowerCase().includes(inputValue.toLowerCase())) {
-                return item;
-            }
-        }).map((item) => (<Work data={item} user={usersData[item.postId - 1].userName} key={item.id} imageId={usersData[item.postId - 1].userId}/>))) : <h1>Loading</h1>}
-                <Pagination postsPerPage={postsPerPage} totalPosts={posts.length} paginate={paginate} nextPage={nextPage} prevPage={prevPage}/>
+                {!loading && usersData.length > 0 ? (currentPosts.map((item) => (<Work data={item} user={usersData[item.postId - 1].userName} key={item.id} imageId={usersData[item.postId - 1].userId}/>))) : <h1>Loading</h1>}
+                <Pagination postsPerPage={postsPerPage} totalPosts={posts.length} paginate={paginate} nextPage={nextPage} prevPage={prevPage} />
             </StyledContentWrapper>
         </StyledWrapper>
     )
