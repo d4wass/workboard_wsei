@@ -22,9 +22,9 @@ const WorkspaceView = () => {
 
     useEffect(() => {
         Object.entries(state).map(([key, value]) => {
-            if (key == "title") {
+            if (key === "title") {
                 setTitle(value)
-            } else if (key == "content") {
+            } else if (key === "content") {
                 setContent(value)
             }
         })

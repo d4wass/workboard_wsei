@@ -72,7 +72,7 @@ const Resume = ({ loading, comments, users, location}: ResumeType) => {
 
     //HandleInput
     const handleInput = (ev: React.ChangeEvent<HTMLInputElement>) => {
-        setInputValue(ev.target.value)
+        setInputValue(ev.target.value);
     }
 
     useEffect(() => {
@@ -91,7 +91,6 @@ const Resume = ({ loading, comments, users, location}: ResumeType) => {
 
         setUsersData(combineArray);
         setPosts(combinePost);
-        posts.filter(item => item.name === inputValue)
 
     }, [loading, comments, users]);
 
@@ -99,7 +98,13 @@ const Resume = ({ loading, comments, users, location}: ResumeType) => {
         <StyledWrapper pathname={location.pathname}>
             <Heading handleInput={handleInput} inputValue={inputValue}/>
             <StyledContentWrapper>
-                {!loading && usersData.length > 0 ? (currentPosts.map((item) => (<Work data={item} user={usersData[item.postId - 1].userName} key={item.id} imageId={usersData[item.postId - 1].userId}/>))) : <h1>Loading</h1>}
+                {!loading && usersData.length > 0 ? (currentPosts.filter(item => {
+            if (inputValue === "") {
+                return item;
+            } else if (item.name.toLowerCase().includes(inputValue.toLowerCase())) {
+                return item;
+            }
+        }).map((item) => (<Work data={item} user={usersData[item.postId - 1].userName} key={item.id} imageId={usersData[item.postId - 1].userId}/>))) : <h1>Loading</h1>}
                 <Pagination postsPerPage={postsPerPage} totalPosts={posts.length} paginate={paginate} nextPage={nextPage} prevPage={prevPage}/>
             </StyledContentWrapper>
         </StyledWrapper>
