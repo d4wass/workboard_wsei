@@ -8,6 +8,7 @@ import SiteTemplate from 'templates/SiteTemplate';
 import EntityItem from 'components/molecules/Entities/EntityItem';
 import { Title, Wrapper } from 'utils/Components';
 import ChangeViewBtn from 'components/atoms/Entites/ChangeViewBtn';
+import EntitiesFilter from 'components/organism/EntitiesFilter';
 
 const StyledWrapper = styled(Wrapper)`
     flex-direction: column;
@@ -59,6 +60,7 @@ const Entities = () => {
                     <Title>Entities</Title>
                     <ChangeViewBtn handleView={handleView} />
                 </StyledContentWrapper>
+                <EntitiesFilter/>
                 <StyledContentWrapper list={isList}>
                     {userItem}
                 </StyledContentWrapper>

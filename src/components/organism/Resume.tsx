@@ -59,20 +59,16 @@ const Resume = ({ loading, comments, users, location}: ResumeType) => {
     const nextPage = (pages: number) => {
         if (currentPage === pages) {
             setCurrentPage(1)
-            // setCurrentPosts(posts.slice(indexOfFirstPost, indexOflastPost))
         } else if (currentPage < pages) {
             setCurrentPage(currentPage + 1)
-            // setCurrentPosts(posts.slice(indexOfFirstPost, indexOflastPost))
         }
     }
 
     const prevPage = (pages: number) => {
         if (currentPage === 1) {
             setCurrentPage(pages)
-            // setCurrentPosts(posts.slice(indexOfFirstPost, indexOflastPost))
         } else if (currentPage <= pages) {
             setCurrentPage(currentPage - 1)
-            // setCurrentPosts(posts.slice(indexOfFirstPost, indexOflastPost))
         }
     }
 

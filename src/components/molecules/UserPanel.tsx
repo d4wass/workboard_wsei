@@ -58,8 +58,8 @@ const UserPanel: React.FC = () => (
         </StyledContent>
         <StyledSpan/>
         <StyledContent>
-            <SidebarBtn content="Your Network" icon="Network"/>
-            <SidebarBtn content="Your publications" icon="Publications"/>
+            <SidebarBtn content="Your Network" icon="Network" />
+            <SidebarBtn content="Your publications" icon="Publications" />
         </StyledContent>
     </StyledWrapper>
 );
