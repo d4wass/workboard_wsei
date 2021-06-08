@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import Select from 'react-select';
+import Select, { ValueType } from 'react-select';
 
 
 const StyledSelect = styled(Select)`
@@ -12,6 +12,7 @@ type Options = {
     name: string,
     value: string
 }
+
 
 const optionsFilter: Options[] = [
     {
@@ -61,17 +62,24 @@ const optionsFilterNegation: Options[] = [
     },
 ]
 
-const FilterSelect = ({handleSelectFn, activeFilter} : {handleSelectFn: () => void, activeFilter: boolean}) => {
+const FilterSelect = ({handleSelectFn, activeFilter} : {handleSelectFn: (option: Options) => void, activeFilter: boolean}) => {
 
-    // const [activeFilter, setActiveFilter] = useState(false);
+    const [option, setOption] = useState<Options>();
+    const handleChange = (option: Options) => {
+        setOption(option)
+    }
 
     return (
         <div>
             <StyledSelect
+                value={option}
                 options={optionsFilter}
                 getOptionLabel={(option: Options) => option.name}
                 getOptionValue={(option: Options) => option.value}
-                onChange={handleSelectFn}
+                onChange={(option: Options) => {
+                    handleChange({name: option.name, value: option.value})
+                    handleSelectFn(option)
+                }}
             />
             {/* <StyledSelect
                 options={optionsType}

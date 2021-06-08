@@ -17,19 +17,37 @@ const StyledFilterWrapper = styled.div`
     align-items: center;
 `;
 
+const StyledContentWrapper = styled.div`
+    display: flex;
+    flex-direction: column;
+`
+
 const EntitiesFilter = () => {
     const [selectedFilter, setSelectedFilter] = useState<string>('');
     const [isFilterActive, setActiveFilter] = useState(false);
-    const [] = useState();
 
-    const handleSelect = () => {
+    const handleSelect = (option: {name: string, value: string}) => {
         console.log('działa')
+        setSelectedFilter(option.name);
+    }
+
+    const addFilter = () => {
+        if (selectedFilter) {
+            setActiveFilter(!isFilterActive)
+        } else {
+            alert('Please select value of filter')
+        }
     }
 
     return (
         <StyledWrapper>
+            <StyledContentWrapper>
+                {/*
+                    tutaj robisz div który będzie trzymać wszystkie kolejne filtry
+                */}
+            </StyledContentWrapper>
             <StyledFilterWrapper>
-                <FilterButton handleClickFn={() => setActiveFilter(!isFilterActive)} activeFilter={isFilterActive}/>
+                <FilterButton handleClickFn={addFilter} activeFilter={isFilterActive}/>
                 <FilterSelect handleSelectFn={handleSelect} activeFilter={isFilterActive} />
             </StyledFilterWrapper>
         </StyledWrapper>
