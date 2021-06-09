@@ -8,6 +8,10 @@ const StyledSelect = styled(Select)`
     margin: 0 20px;
 `;
 
+const StyledWrapper = styled.div`
+    display: flex;
+`;
+
 type Options = {
     name: string,
     value: string
@@ -62,7 +66,12 @@ const optionsFilterNegation: Options[] = [
     },
 ]
 
-const FilterSelect = ({handleSelectFn, activeFilter} : {handleSelectFn: (option: Options) => void, activeFilter: boolean}) => {
+type FilterSelectType = {
+    handleSelectFn: (option: Options, filterType: string) => void,
+    filterType: string
+}
+
+const FilterSelect = ({handleSelectFn, filterType} : FilterSelectType) => {
 
     const [option, setOption] = useState<Options>();
     const handleChange = (option: Options) => {
@@ -71,31 +80,51 @@ const FilterSelect = ({handleSelectFn, activeFilter} : {handleSelectFn: (option:
 
     return (
         <div>
-            <StyledSelect
+            {filterType === 'adding' && <StyledSelect
                 value={option}
                 options={optionsFilter}
                 getOptionLabel={(option: Options) => option.name}
                 getOptionValue={(option: Options) => option.value}
                 onChange={(option: Options) => {
                     handleChange({name: option.name, value: option.value})
-                    handleSelectFn(option)
+                    handleSelectFn(option, filterType)
                 }}
-            />
-            {/* <StyledSelect
+            />}
+            {filterType === 'status' && <StyledSelect
+                value={option}
                 options={optionsType}
                 getOptionLabel={(option: Options) => option.name}
                 getOptionValue={(option: Options) => option.value}
+                onChange={(option: Options) => {
+                    handleChange({name: option.name, value: option.value})
+                    handleSelectFn(option, filterType)
+                }}
             />
-            <StyledSelect
-                options={optionsFilterType}
-                getOptionLabel={(option: Options) => option.name}
-                getOptionValue={(option: Options) => option.value}
-            />
-            <StyledSelect
-                options={optionsFilterNegation}
-                getOptionLabel={(option: Options) => option.name}
-                getOptionValue={(option: Options) => option.value}
-            /> */}
+            }
+            {filterType === 'contains' &&
+                <StyledSelect
+                    value={option}
+                    options={optionsFilterType}
+                    getOptionLabel={(option: Options) => option.name}
+                    getOptionValue={(option: Options) => option.value}
+                    onChange={(option: Options) => {
+                        handleChange({name: option.name, value: option.value})
+                        handleSelectFn(option, filterType)
+                    }}
+                />
+            }
+            {filterType === 'negation' &&
+                <StyledSelect
+                    value={option}
+                    options={optionsFilterNegation}
+                    getOptionLabel={(option: Options) => option.name}
+                    getOptionValue={(option: Options) => option.value}
+                    onChange={(option: Options) => {
+                        handleChange({name: option.name, value: option.value})
+                        handleSelectFn(option, filterType)
+                    }}
+                />
+            }
         </div>
     )
 }

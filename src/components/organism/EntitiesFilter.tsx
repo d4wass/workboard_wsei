@@ -2,7 +2,9 @@ import FilterButton from 'components/atoms/Entites/FilterBtn';
 import FilterSelect from 'components/atoms/Entites/FilterSelect'
 import {useState} from 'react';
 import styled from 'styled-components';
-import {Wrapper} from 'utils/Components'
+import { Wrapper } from 'utils/Components';
+import AddFilter from 'components/molecules/Entities/AddFilter';
+import EntityFilter from 'components/molecules/Entities/EntityFilter';
 
 const StyledWrapper = styled(Wrapper)`
     flex-direction: column;
@@ -22,33 +24,40 @@ const StyledContentWrapper = styled.div`
     flex-direction: column;
 `
 
+type FilterType = {
+    name: string,
+    value: string
+}
+
 const EntitiesFilter = () => {
-    const [selectedFilter, setSelectedFilter] = useState<string>('');
-    const [isFilterActive, setActiveFilter] = useState(false);
 
-    const handleSelect = (option: {name: string, value: string}) => {
-        console.log('działa')
-        setSelectedFilter(option.name);
+    const [selectedFilters, setSelectedFilters] = useState<FilterType[]>([]);
+
+    const handleAddedFilters = (option: FilterType) => {
+        setSelectedFilters([...selectedFilters, option])
     }
 
-    const addFilter = () => {
-        if (selectedFilter) {
-            setActiveFilter(!isFilterActive)
-        } else {
-            alert('Please select value of filter')
-        }
+    const handleRemoveFilter = (id: number) => {
+        let filtered = selectedFilters.filter((item, index) => index !== id)
+        setSelectedFilters(filtered)
     }
+
 
     return (
         <StyledWrapper>
             <StyledContentWrapper>
-                {/*
-                    tutaj robisz div który będzie trzymać wszystkie kolejne filtry
-                */}
+                {
+                    selectedFilters.map(
+                        (item, index) => <EntityFilter
+                            removeFilter={handleRemoveFilter}
+                            filterType={item.name}
+                            key={index}
+                            idFilter={index}
+                    />)
+                }
             </StyledContentWrapper>
             <StyledFilterWrapper>
-                <FilterButton handleClickFn={addFilter} activeFilter={isFilterActive}/>
-                <FilterSelect handleSelectFn={handleSelect} activeFilter={isFilterActive} />
+                <AddFilter handleAddedFilter={handleAddedFilters}/>
             </StyledFilterWrapper>
         </StyledWrapper>
     );

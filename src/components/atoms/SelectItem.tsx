@@ -7,6 +7,7 @@ import { NavLink } from 'react-router-dom'
 const StyledWrapper = styled(Wrapper)`
     box-shadow: none;
     background-color: none;
+    align-items: center;
 `;
 
 type SelectItemProps = {

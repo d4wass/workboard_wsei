@@ -5,6 +5,7 @@ import { routes } from 'routes/routes';
 import NavItemSVG from 'components/atoms/NavItemSVG';
 import { ReactComponent as DownArrow } from 'assets/icons/arrow-down.svg';
 import { Wrapper } from 'utils/Components';
+import Input from './Input';
 
 interface IDropdownList {
     onClick?: React.MouseEventHandler<HTMLDivElement>;
@@ -13,6 +14,10 @@ interface IDropdownList {
 type TStyledNavigation = {
     isopen: boolean;
 }
+
+const StyledWrapper = styled(Wrapper)`
+    align-items: center;
+`;
 
 const StyledNavigation = styled.div<TStyledNavigation>`
     display: flex;
@@ -49,6 +54,10 @@ const StyledDownArrow = styled(DownArrow)`
     transform: ${({isopen}) => isopen ? 'rotateX(180deg)' : 'rotateX(0deg)'};
 `;
 
+const StyledInput = styled(Input)`
+    width: 100%;
+`;
+
 const DropdownList: React.FC<IDropdownList> = () => {
 
     const [isOpen, setOpen] = useState<boolean>(false);
@@ -75,14 +84,15 @@ const DropdownList: React.FC<IDropdownList> = () => {
         <>
             <StyledNavigation isopen={isOpen} >
                 <StyledNavItem onClick={handleOpen}>
-                    <Wrapper>
+                    <StyledWrapper>
                         <NavItemSVG namePage={isActive}/>
                         {isActive}
-                    </Wrapper>
+                    </StyledWrapper>
                     <StyledDownArrow isopen={isOpen}/>
                 </StyledNavItem>
             </StyledNavigation>
             <StyledNavbarList isopen={isOpen} >
+                <StyledInput type="text" label="Search" location="navigation"/>
                 {isOpen && routes.map(item => (
                     <StyledNavItem>
                         <SelectItem path={item.to} >{item.name}</SelectItem>

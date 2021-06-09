@@ -8,9 +8,15 @@ const StyledWrapper = styled.div`
     margin-left: 10px;
 `
 
+const StyledParagraph = styled.p`
+    color: ${({ theme }) => theme.color.blue};
+`;
+
 const NavigationItem: React.FC = ({ children }: {children?: React.ReactNode}) => (
     <StyledWrapper>
-        {children}
+        <StyledParagraph>
+            {children}
+        </StyledParagraph>
     </StyledWrapper>
 )
 

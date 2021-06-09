@@ -26,16 +26,16 @@ const StyledClose = styled(Close)`
     width: 25px;
 `;
 
-const FilterButton = ({handleClickFn, activeFilter}: {handleClickFn: () => void, activeFilter: boolean}) => {
-
-    // const [isFilterActive, setActiveFilter] = useState(false);
-
-    return (
-        <StyledWrapper onClick={handleClickFn}>
-            {!activeFilter ? <StyledPlus /> : <StyledClose/>}
-            <StyledParagraph>{!activeFilter ? 'Add filter' : 'Where'}</StyledParagraph>
-        </StyledWrapper>
-    )
+type FilterButtonType = {
+    handleClickFn: () => void,
+    buttonType: string
 }
+
+const FilterButton = ({handleClickFn, buttonType}: FilterButtonType) => (
+        <StyledWrapper onClick={handleClickFn}>
+            {buttonType === "add" ? <StyledPlus /> : <StyledClose/>}
+            <StyledParagraph>{buttonType === "add" ? 'Add filter' : buttonType}</StyledParagraph>
+        </StyledWrapper>
+)
 
 export default FilterButton;

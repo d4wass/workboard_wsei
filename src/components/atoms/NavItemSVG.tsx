@@ -6,8 +6,11 @@ import { ReactComponent as Entities } from 'assets/icons/building-solid.svg';
 import { ReactComponent as Admin } from 'assets/icons/user-shield-solid.svg';
 
 const StyledNavItemSVG = styled.div`
-    height: 30px;
-    width: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 25px;
+    width: 25px;
     margin-right: 10px;
 `
 
@@ -17,7 +20,7 @@ const NavItemSVG = ({namePage}: {namePage: string}): JSX.Element => (
         {namePage === 'Publications' && <Publications/> }
         {namePage === 'People' && <People/> }
         {namePage === 'Entities' && <Entities/> }
-        {namePage === 'Admininstration' && <Admin /> }    
+        {namePage === 'Admininstration' && <Admin /> }
     </StyledNavItemSVG>
 );
 

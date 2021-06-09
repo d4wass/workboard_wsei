@@ -2,10 +2,10 @@ import * as React from 'react';
 import styled from 'styled-components';
 import { Wrapper } from 'utils/Components';
 
-const StyledWrapper = styled(Wrapper)`
+const StyledWrapper = styled(Wrapper) <{ location?: string }>`
   position: relative;
   height: 40px;
-  width: 50%;
+  width: ${({location}) => location === 'navigation' ? '100%' : '50%'};
   justify-content: center;
 `;
 
@@ -52,11 +52,13 @@ interface IInput extends React.HTMLProps<JSX.Element>{
   name?: string,
   required?: boolean,
   value?: string,
-  fnChange?: any
+  fnChange?: any,
+  location?: string
+
 }
 
-const Input = ({ type, label, name, value, fnChange }: IInput) => (
-  <StyledWrapper>
+const Input = ({ type, label, name, value, fnChange, location }: IInput) => (
+  <StyledWrapper location={location}>
     <StyledInput type={type} name={name} value={value} onChange={(e: React.ChangeEvent<HTMLInputElement>) => fnChange(e)} required />
     <StyledLabel>{label}</StyledLabel>
   </StyledWrapper>
