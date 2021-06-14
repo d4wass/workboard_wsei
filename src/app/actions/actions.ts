@@ -73,3 +73,7 @@ export const fetchUsers = () => (dispatch: Dispatch) => {
         })
 }
 
+export const setUserProfile = () => (dispatch: Dispatch) => {
+
+}
+

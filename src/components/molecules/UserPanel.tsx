@@ -1,8 +1,17 @@
-import * as React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { useState, useEffect } from 'react';
 import styled, { css } from 'styled-components';
 import { Wrapper, UserTitle } from 'utils/Components';
 import SidebarBtn from 'components/atoms/SidebarBtn';
 import person from 'assets/person.jpg'
+import { NavLink } from 'react-router-dom';
+import { AppState } from 'app/store/store';
+import { fetchUsers } from 'app/actions/actions';
+import { TUser } from 'app/reducers/stateTypes';
+
+interface IProfile extends TUser {
+    img: string
+}
 
 const StyledWrapper = styled(Wrapper)`
     width: auto;
@@ -11,6 +20,7 @@ const StyledWrapper = styled(Wrapper)`
     padding: 20px 20px;
     border-radius: 10px;
     background-color: #fff;
+    box-shadow: 0 8px 6px -6px #ccc;
 `;
 
 const StyledContent = styled(Wrapper)<IContentStyled>`
@@ -20,7 +30,13 @@ const StyledContent = styled(Wrapper)<IContentStyled>`
 
     ${({ center }) => center && css`
         justify-content: center;
+        padding: 10px;
+        border-radius: 10px;
         align-items: center;
+        transition: all ease-in-out 0.3s;
+        &:hover{
+            background-color: ${({theme}) => theme.color.lightgrey}
+        }
     `}
 `
 
@@ -35,11 +51,11 @@ const StyledSpan = styled.span`
     background-color: ${({ theme }) => theme.color.iconGrey};
 `
 
-const StyledImg = styled.div`
+const StyledImg = styled.div<{image?: string}>`
     height: 100px;
     width: 100px;
     border-radius: 50%;
-    background-image: url(${person});
+    background-image: url(${({image}) => image ? image : person});
     background-size: cover;
     background-repeat: no-repeat;
     margin-bottom: 20px;
@@ -49,19 +65,42 @@ interface IContentStyled {
     center?: boolean
 }
 
-const UserPanel: React.FC = () => (
-    <StyledWrapper>
-        <StyledContent center>
-            <StyledImg/>
-            <UserTitle>John Doe</UserTitle>
-            <StyledUserTitle>Job Title - Company</StyledUserTitle>
-        </StyledContent>
-        <StyledSpan/>
-        <StyledContent>
-            <SidebarBtn content="Your Network" icon="Network" />
-            <SidebarBtn content="Your publications" icon="Publications" />
-        </StyledContent>
-    </StyledWrapper>
-);
+const UserPanel = () => {
+    const [profile, setProfile] = useState({} as IProfile)
+    const dispatch = useDispatch()
+    const user = useSelector((state: AppState) => (state.user));
+    const photos = useSelector((state: AppState) => (state.photos))
+
+    const createUserProfile = () => {
+        const image = photos.filter(photo => photo.id === user.id)[0]
+        const extendedUser: any = user;
+        extendedUser['img'] = image
+        console.log(image)
+        setProfile(extendedUser)
+    }
+
+    useEffect(() => {
+        console.log('renderuje userPanel')
+        if (!photos.length) {
+            dispatch(fetchUsers())
+            createUserProfile()
+        }
+    });
+
+    return (
+        <StyledWrapper>
+            <StyledContent as={NavLink} to="/profile" center>
+                <StyledImg />
+                <UserTitle>{user.name}</UserTitle>
+                <StyledUserTitle>Inter - lkjlkjlkj</StyledUserTitle>
+            </StyledContent>
+            <StyledSpan/>
+            <StyledContent>
+                <SidebarBtn content="Your Network" icon="Network" />
+                <SidebarBtn content="Your publications" icon="Publications" />
+            </StyledContent>
+        </StyledWrapper>
+    )
+};
 
 export default UserPanel;

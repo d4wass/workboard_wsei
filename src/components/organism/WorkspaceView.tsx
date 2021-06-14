@@ -4,6 +4,7 @@ import { Wrapper } from 'utils/Components';
 import WorkspaceHeading from 'components/molecules/Workspace/WorkspaceHeading';
 import WorkspaceEntities from 'components/molecules/Workspace/WorkspaceEntities';
 import { useLocation } from 'react-router-dom';
+import SiteTemplate from 'templates/SiteTemplate';
 
 interface LocationState {
     state: {title: string}
@@ -31,10 +32,12 @@ const WorkspaceView = () => {
     })
 
     return (
-        <StyledWrapper>
-            <WorkspaceHeading title={title} content={content} />
-            <WorkspaceEntities/>
-        </StyledWrapper>
+        <SiteTemplate>
+            <StyledWrapper>
+                <WorkspaceHeading title={title} content={content} />
+                <WorkspaceEntities/>
+            </StyledWrapper>
+        </SiteTemplate>
     )
 };
 

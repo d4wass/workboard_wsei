@@ -22,3 +22,9 @@ export const Title = styled.h1`
     margin-bottom: 20px;
     width: 100%;
 `;
+
+export const ProfileWrapper = styled.div`
+    display: flex;
+    margin: 20px 0;
+    border-bottom: ${({theme}) => `solid 1px ${theme.color.iconGrey}`};
+`

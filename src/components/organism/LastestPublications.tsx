@@ -3,8 +3,6 @@ import styled from 'styled-components';
 import { Wrapper, Title } from 'utils/Components';
 import Publication from 'components/molecules/Publication';
 import FullPublication from 'components/molecules/FullPublication';
-import Button from 'components/atoms/Button';
-
 
 interface ILastestPublications {
     children?: React.ReactNode,
@@ -26,8 +24,17 @@ const StyledContentWrapper = styled(Wrapper)<{ column?: boolean, children?: any,
     width: 100%;
 `;
 
-const StyledButton = styled(Button)`
+const StyledButton = styled.button`
+    background-color: ${({ theme }) => theme.color.iconGrey};
     border: none;
+    border-radius: 10px;
+    padding: 10px 10px;
+    cursor: pointer;
+    transition: all ease-in-out 0.3s;
+    &:hover {
+        color: ${({ theme }) => theme.color.white};
+        background-color: ${({ theme }) => theme.color.grey};
+    }
 `;
 
 const LastestPublications: React.FC<ILastestPublications> = ({ lastestPublications }) => (

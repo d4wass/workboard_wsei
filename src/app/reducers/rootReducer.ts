@@ -1,9 +1,9 @@
 import { Constants } from 'app/actions/actionTypes';
-import {TUser, TComment, TPhoto, TPost} from 'app/reducers/stateTypes'
-
+import { TUser, TComment, TPhoto, TPost } from 'app/reducers/stateTypes';
 
 interface IinitialState {
     loading: boolean,
+    user: TUser,
     users: Array<TUser>,
     comments: Array<TComment>,
     photos: Array<TPhoto>,
@@ -18,6 +18,7 @@ type TAction = {
 
 const initialState: IinitialState = {
     loading: false,
+    user: {} as TUser,
     users: [],
     comments: [],
     photos: [],
@@ -35,6 +36,7 @@ export const rootReducer = (state: IinitialState = initialState, action: TAction
         case Constants.FETCH_DATA_SUCCESS:
             return {
                 ...state,
+                user: action.payload.users[0],
                 users: action.payload.users,
                 comments: action.payload.comments,
                 photos: action.payload.photos,
@@ -55,6 +57,7 @@ export const rootReducer = (state: IinitialState = initialState, action: TAction
         case Constants.FETCH_USERS_SUCCESS:
             return {
                 ...state,
+                user: action.payload.users[0],
                 users: action.payload.users,
                 photos: action.payload.photos,
                 loading: false

@@ -1,27 +1,20 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import SiteTemplate from 'templates/SiteTemplate';
 import LastestPublications from 'components/organism/LastestPublications'
 import Resume from 'components/organism/Resume'
-import { connect } from 'react-redux';
-import { Dispatch } from 'redux';
-import { FetchDispatchType, DispatchTypeAction } from 'app/actions/actionTypes';
 import { fetchDataUsers } from 'app/actions/actions';
 import Workspaces from 'components/organism/Workspaces';
 import { Wrapper } from 'utils/Components';
 import styled from 'styled-components'
-import { Action } from 'typesafe-actions';
+import { AppState } from 'app/store/store';
 
 interface IHome {
     children?: React.ReactNode,
     lastestPublications: any,
-    fetchUserData: () => Promise<void>,
     loading: boolean,
     users: any,
     comments: any,
-}
-
-interface MapDispatchToPropsTypes {
-    fetchUserData: () => Promise<void>;
 }
 
 type TLastPublication = {
@@ -32,22 +25,40 @@ type TLastPublication = {
     image: string
 }
 
-interface MapStateToPropsTypes {
-    // Your properties here
-    // lastestPublications: Array<TLastPublication>,
-    // loading: boolean
-}
-
 const StyledWrapper = styled(Wrapper)`
     flex-direction: column;
     width: 80vw;
 `
 
-const Home: React.FC<IHome> = ({ fetchUserData, lastestPublications, loading, comments, users }) => {
+const Home = () => {
+
+    const [lastestPublications, setLastestPublications] = useState<TLastPublication[]>([])
+
+    const dispatch = useDispatch()
+    const user = useSelector((state: AppState) => (state.user));
+    const users = useSelector((state: AppState) => (state.users));
+    const posts = useSelector((state: AppState) => (state.posts));
+    const photos = useSelector((state: AppState) => (state.photos));
+    const comments = useSelector((state: AppState) => (state.comments));
+    const loading = useSelector((state: AppState) => (state.loading));
+
+    const combineData = () => {
+        let stateData: Array<TLastPublication> = [];
+        users.forEach(
+            (item: any, index: number) => stateData.push({
+                image: photos[index].url,
+                title: posts[index].title,
+                imageAlt: photos[index].title,
+                userName: item.name,
+                userImage: photos[index].url
+            })
+        );
+        setLastestPublications(stateData)
+    }
 
     useEffect(() => {
-        const getData = async () => await fetchUserData()
-        getData()
+        dispatch(fetchDataUsers())
+            combineData()
     }, []);
 
     return (
@@ -83,4 +94,4 @@ const mapStateToProps = (state: any) => {
     return { lastestPublications, loading, comments, users };
 };
 
-export default connect<MapStateToPropsTypes, MapDispatchToPropsTypes>(mapStateToProps, mapDispatchToProps)(Home);
+export default Home;

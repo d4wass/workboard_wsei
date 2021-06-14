@@ -47,7 +47,7 @@ const WorkspaceEntities = () => {
         if (!comments.length && !users.length) {
             dispatch(fetchDataUsers())
         }
-    }, [dispatch]);
+    }, []);
 
     return (
         <StyledWrapper>

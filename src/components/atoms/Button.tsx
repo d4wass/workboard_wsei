@@ -8,8 +8,8 @@ const StyledWrapper = styled.button`
     border-radius: 10px;
     border: ${({ theme }) => `solid 1px ${theme.color.darkblue}`};
     padding: 5px 10px;
-    background-color: #fff;
     cursor: pointer;
+    background-color: #fff;
 `
 type ButtonProps = {
     icon?: string,

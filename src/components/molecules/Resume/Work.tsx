@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import {useState} from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { Wrapper, Title, Paragraph } from 'utils/Components';
