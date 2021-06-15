@@ -74,6 +74,6 @@ export const fetchUsers = () => (dispatch: Dispatch) => {
 }
 
 export const setUserProfile = () => (dispatch: Dispatch) => {
-
+    // dispatch({type: Constants.})
 }
 

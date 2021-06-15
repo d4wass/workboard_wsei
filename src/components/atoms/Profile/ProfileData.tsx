@@ -1,6 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
+import ProfileInput from 'components/atoms/Profile/ProfileInput';
 import {Paragraph, Wrapper} from 'utils/Components'
+import { TUser } from 'app/reducers/stateTypes';
 
 const StyledWrapper = styled(Wrapper)`
     height: 100%;
@@ -19,33 +21,27 @@ const StyledParagraph = styled(Paragraph)`
 `;
 
 type ProfileDataType = {
-    name: string,
-    phone: string,
-    email: string,
-    company: {
-        name: string,
-        catchPhrase: string,
-        bs: string
-    },
-    address: {
-        city: string,
-
-    }
+    fnChange: any,
+    isEdited: boolean,
+    user: TUser
 }
 
-const ProfileData = ({name, phone, email, company, address}: ProfileDataType) => (
-    <StyledWrapper>
-        <StyledContentWrapper>
-            <StyledParagraph>{name}</StyledParagraph>
-            <StyledParagraph>{company.name}</StyledParagraph>
-            <StyledParagraph>{address.city}</StyledParagraph>
-            {/* tutaj musisz dać selecta z opcjami wyboru stanowiska */}
-        </StyledContentWrapper>
-        <StyledContentWrapper contact>
-            <StyledParagraph>{email}</StyledParagraph>
-            <StyledParagraph>{phone}</StyledParagraph>
-        </StyledContentWrapper>
-    </StyledWrapper>
-);
+const ProfileData = ({user, fnChange, isEdited}: ProfileDataType) => {
+        const { name, phone, email, company, address } = user
+    return (
+        <StyledWrapper>
+            <StyledContentWrapper>
+                {isEdited ? <ProfileInput value={name} name="name" fnChange={fnChange}/> : <StyledParagraph>{name}</StyledParagraph>}
+                {isEdited ? <ProfileInput value={company.name} name="company" fnChange={fnChange}/> : <StyledParagraph>{company.name}</StyledParagraph>}
+                {isEdited ? <ProfileInput value={address.city} name="city" fnChange={fnChange}/> : <StyledParagraph>{address.city}</StyledParagraph>}
+                {/* tutaj musisz dać selecta z opcjami wyboru stanowiska */}
+            </StyledContentWrapper>
+            <StyledContentWrapper contact>
+                {isEdited ? <ProfileInput value={email} name="email" fnChange={fnChange}/> :  <StyledParagraph>{email}</StyledParagraph>}
+                {isEdited ? <ProfileInput value={phone} name="phone" fnChange={fnChange}/> :  <StyledParagraph>{phone}</StyledParagraph>}
+            </StyledContentWrapper>
+        </StyledWrapper>
+    )
+};
 
 export default ProfileData;

@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { ProfileWrapper } from 'utils/Components';
 import ProfileImg from 'components/atoms/Profile/ProfileImg';
 import { ReactComponent as Edit } from 'assets/icons/edit-regular.svg';
+import { ReactComponent as Save } from 'assets/icons/save-regular.svg';
+import { ReactComponent as Times } from 'assets/icons/times-solid.svg';
 import ProfileData from 'components/atoms/Profile/ProfileData';
 import { TUser } from 'app/reducers/stateTypes';
 
@@ -35,22 +37,32 @@ const StyledButton = styled.button`
 
 const StyledEdit = styled(Edit)`
     height: 20px;
-
 `
+
+const StyledClose = styled(Times)`
+    height: 20px;
+`
+
+const StyledSave = styled(Save)`
+    height: 20px;
+`
+
 type ProfileInfoType = {
     user: TUser
+    fnChange: any
 }
 
-const ProfileInfo = ({ user }: ProfileInfoType) => {
-    const {name, phone, company, address, email} = user
+const ProfileInfo = ({ user, fnChange }: ProfileInfoType) => {
+    const [isEdited, setEditingMode] = useState<boolean>(false)
+
     return (
         <ProfileWrapper>
             <StyledContentWrapper>
                 <StyledContentWrapper end>
                     <ProfileImg image="https://via.placeholder.com/600/92c952" />
-                    <ProfileData name={name} phone={phone} company={company} address={address} email={email}/>
+                    <ProfileData user={user} isEdited={isEdited} fnChange={fnChange}/>
                 </StyledContentWrapper>
-                <StyledButton><StyledEdit/></StyledButton>
+                <StyledButton onClick={() => setEditingMode(!isEdited)}>{isEdited ? <StyledSave/> : <StyledEdit/>}</StyledButton>
             </StyledContentWrapper>
         </ProfileWrapper>
     )

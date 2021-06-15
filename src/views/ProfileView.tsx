@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { Wrapper } from 'utils/Components';
@@ -23,19 +23,35 @@ const StyledWrapper = styled(Wrapper)`
 
 const ProfileView = () => {
 
-    const [profile, setProfile] = useState<TUser>()
-    const dispatch = useDispatch()
     const user = useSelector((state: AppState) => (state.user));
     const photos = useSelector((state: AppState) => (state.photos))
 
-    const createUserProfile = () => {
-        const image = photos.filter(photo => photo.id === user.id)
+    const [profile, setProfile] = useState<TUser>(user)
+    const [inputValue, setInputValue] = useState<string>("")
+    const dispatch = useDispatch()
 
+    const editProfile = (e: React.ChangeEvent<HTMLInputElement>) => {
+        let copyProfile = profile
+        const { name, value }: { name: string, value: string } = e.target
+
+        console.log(copyProfile)
+
+        if (name === 'city') {
+            setInputValue(copyProfile['address'].city)
+            copyProfile['address'].city = value
+            setProfile(copyProfile)
+        } else if (name === 'company') {
+            setInputValue(copyProfile['company'].name)
+            copyProfile['company'].name = value
+            setProfile(copyProfile)
+        } else {
+            setInputValue(value);
+            (copyProfile as any)[name] = value;
+            setProfile(copyProfile)
+        }
     }
 
     useEffect(() => {
-        console.log(photos.length)
-        console.log(user)
         if (!photos.length) {
             dispatch(fetchUsers())
             setProfile(user)
@@ -46,7 +62,7 @@ const ProfileView = () => {
         <SiteTemplate>
             <StyledWrapper>
                 <ProfileBtn/>
-                <ProfileInfo user={user}/>
+                <ProfileInfo user={profile} fnChange={editProfile}/>
             </StyledWrapper>
         </SiteTemplate>
     )
