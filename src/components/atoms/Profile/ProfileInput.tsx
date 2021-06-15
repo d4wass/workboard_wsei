@@ -3,15 +3,16 @@ import styled from 'styled-components';
 
 type ProfileInputType = {
     value: string,
-    name: string,
+    name?: string,
     fnChange?: any
 }
 
 const StyledInput = styled.input`
-    padding: 0px 10px;
+    padding: 5px 10px;
     background-color: rgba(42, 63, 157, 0.1);
     border-radius: 5px;
     margin-bottom: 5px;
+    border: none;
 `;
 
 const ProfileInput = ({ value, name, fnChange }: ProfileInputType) => (

@@ -8,6 +8,7 @@ import { fetchUsers } from 'app/actions/actions';
 import { AppState } from 'app/store/store';
 import SiteTemplate from 'templates/SiteTemplate';
 import { TUser } from 'app/reducers/stateTypes';
+import ProfileSpecification from 'components/molecules/Profile/ProfileSpecification';
 
 
 const StyledWrapper = styled(Wrapper)`
@@ -62,7 +63,8 @@ const ProfileView = () => {
         <SiteTemplate>
             <StyledWrapper>
                 <ProfileBtn/>
-                <ProfileInfo user={profile} fnChange={editProfile}/>
+                <ProfileInfo user={profile} fnChange={editProfile} />
+                <ProfileSpecification/>
             </StyledWrapper>
         </SiteTemplate>
     )

@@ -1,13 +1,49 @@
-import ProfileSpecParagraph from 'components/atoms/Profile/ProfileSpecParagraph';
-import React from 'react';
 import styled from 'styled-components';
+import ProfileInput from 'components/atoms/Profile/ProfileInput';
+import {ReactComponent as Delete} from 'assets/icons/times-solid.svg'
 
-const SpecificationInput = ({ isEdited, value }: {isEdited: boolean, value: string}) => {
+type SpecificationInputType = {
+    value: string,
+    handleInput?: () => void
+    handleRemoveBtn?: () => void
+}
+
+const StyledWrapper = styled.div`
+    display: flex;
+`;
+
+const StyledButton = styled.button`
+    border: none;
+    height: 25px;
+    width: 25px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: transparent;
+    color: ${({ theme }) => theme.color.blue};
+    margin-left: 5px;
+    cursor: pointer;
+`;
+
+const StyledDelete = styled(Delete)`
+    height: 20px;
+    width: 20px;
+`;
+
+const StyledInputWrapper = styled.div`
+    display: flex;
+`;
+
+const SpecificationInput = ({ value, handleInput, handleRemoveBtn }: SpecificationInputType) => {
 
     return (
-        <>
-            {isEdited ? <input /> : <ProfileSpecParagraph>{value}</ProfileSpecParagraph>}
-        </>
+        <StyledWrapper>
+            <StyledInputWrapper>
+                <ProfileInput value={value} fnChange={handleInput} />
+                <StyledButton><StyledDelete/></StyledButton>
+            </StyledInputWrapper>
+        </StyledWrapper>
     )
 }
 

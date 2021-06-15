@@ -80,7 +80,6 @@ const UserPanel = () => {
     }
 
     useEffect(() => {
-        console.log('renderuje userPanel')
         if (!photos.length) {
             dispatch(fetchUsers())
             createUserProfile()
