@@ -16,14 +16,20 @@ const StyledContentWrapper = styled.div`
     padding-bottom: 20px;
 `;
 
+type SpecificationElement = {
+    id: number,
+    spanContent: string,
+    initialValue: string[]
+}
+
 const ProfileSpecification = () => {
     const [isEdited, setEdited] = useState<boolean>(false)
 
     return (
         <StyledProfileWrapper>
             <StyledContentWrapper>
-                {SpecificationData.map(item => (
-                    <ProfileSpecParagraph value={item.initialValue} spanContent={item.spanContent} isEdited={isEdited}/>
+                {SpecificationData.map((item: SpecificationElement) => (
+                    <ProfileSpecParagraph value={item.initialValue} spanContent={item.spanContent} isEdited={isEdited} id={item.id}/>
                     ))}
             </StyledContentWrapper>
             <ProfileSaveBtn isEdited={isEdited} handleClick={setEdited}/>

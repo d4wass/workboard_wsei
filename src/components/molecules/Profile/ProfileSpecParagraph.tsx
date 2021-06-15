@@ -5,7 +5,8 @@ import {ReactComponent as Plus} from 'assets/icons/plus-solid.svg'
 type ParagraphType = {
     value?: string[],
     spanContent: string,
-    isEdited?: boolean
+    isEdited?: boolean,
+    id: number
 }
 
 const StyledParagraph = styled.p`
@@ -50,7 +51,8 @@ const StyledButton = styled.button`
     cursor: pointer;
 `;
 
-const ProfileSpecParagraph = ({ value, spanContent, isEdited }: ParagraphType) =>{
+const ProfileSpecParagraph = ({ value, spanContent, isEdited }: ParagraphType) => {
+
     return (
         <>
             {
@@ -58,7 +60,7 @@ const ProfileSpecParagraph = ({ value, spanContent, isEdited }: ParagraphType) =
                     <StyledWrapper>
                         <StyledSpan>{spanContent}</StyledSpan>
                         <StyledContentWrapper>
-                            {value?.map(item => <SpecificationInput value={item} />)}
+                            {value?.map((item: string, index: number) => <SpecificationInput value={item} id={`${index}`}/>)}
                             <StyledButton><StyledPlus/></StyledButton>
                         </StyledContentWrapper>
                     </StyledWrapper> :

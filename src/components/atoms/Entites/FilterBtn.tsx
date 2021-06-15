@@ -1,4 +1,3 @@
-import React, { useState } from 'react';
 import { ReactComponent as Plus } from 'assets/icons/plus-solid.svg';
 import { ReactComponent as Close } from 'assets/icons/times-solid.svg';
 import styled from 'styled-components';
