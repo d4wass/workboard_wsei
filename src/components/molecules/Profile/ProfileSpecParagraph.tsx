@@ -1,12 +1,14 @@
+import React from 'react';
 import styled from 'styled-components';
 import SpecificationInput from 'components/molecules/Profile/SpecificationInput';
 import {ReactComponent as Plus} from 'assets/icons/plus-solid.svg'
 
 type ParagraphType = {
-    value?: string[],
     spanContent: string,
     isEdited?: boolean,
-    id: number
+    id: number,
+    handleDelete: (e: React.MouseEvent<HTMLElement>) => void,
+    value: {id: number, content: string}[]
 }
 
 const StyledParagraph = styled.p`
@@ -51,7 +53,7 @@ const StyledButton = styled.button`
     cursor: pointer;
 `;
 
-const ProfileSpecParagraph = ({ value, spanContent, isEdited }: ParagraphType) => {
+const ProfileSpecParagraph = ({value, spanContent, isEdited, handleDelete }: ParagraphType) => {
 
     return (
         <>
@@ -60,19 +62,18 @@ const ProfileSpecParagraph = ({ value, spanContent, isEdited }: ParagraphType) =
                     <StyledWrapper>
                         <StyledSpan>{spanContent}</StyledSpan>
                         <StyledContentWrapper>
-                            {value?.map((item: string, index: number) => <SpecificationInput value={item} id={`${index}`}/>)}
+                            {value.map((item: { id: number, content: string }) => <SpecificationInput value={item.content} id={`${item.id}`} handleRemoveBtn={handleDelete}/>)}
                             <StyledButton><StyledPlus/></StyledButton>
                         </StyledContentWrapper>
                     </StyledWrapper> :
                     <StyledWrapper>
                         <StyledSpan>{spanContent}</StyledSpan>
                         <StyledContentWrapper>
-                            {value?.map((item: string) => <StyledParagraph>{item}</StyledParagraph>)}
+                            {value.map(item => <StyledParagraph>{item.content}</StyledParagraph>)}
                         </StyledContentWrapper>
                     </StyledWrapper>
             }
         </>
     )
 }
-
 export default ProfileSpecParagraph;

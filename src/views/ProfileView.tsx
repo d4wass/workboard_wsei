@@ -9,7 +9,8 @@ import { AppState } from 'app/store/store';
 import SiteTemplate from 'templates/SiteTemplate';
 import { TUser } from 'app/reducers/stateTypes';
 import ProfileSpecification from 'components/molecules/Profile/ProfileSpecification';
-
+import PanelInformation from 'components/molecules/Profile/PanelInformation';
+import ProfileTableSection from 'components/organism/ProfileTableSection';
 
 const StyledWrapper = styled(Wrapper)`
     flex-direction: column;
@@ -62,9 +63,11 @@ const ProfileView = () => {
     return (
         <SiteTemplate>
             <StyledWrapper>
-                <ProfileBtn/>
-                <ProfileInfo user={profile} fnChange={editProfile} />
-                <ProfileSpecification/>
+                    <ProfileBtn/>
+                    <ProfileInfo user={profile} fnChange={editProfile} />
+                <ProfileSpecification />
+                <PanelInformation />
+                <ProfileTableSection />
             </StyledWrapper>
         </SiteTemplate>
     )
