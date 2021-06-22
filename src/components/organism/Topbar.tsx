@@ -12,6 +12,7 @@ const StyledWrapper = styled(Wrapper)`
     padding: 15px 30px;
     width: 100%;
     box-shadow: 0 8px 6px -6px #ccc;
+    background-color: ${({theme}) => theme.color.white};
 `;
 
 const StyledContentWrapper = styled(Wrapper)`

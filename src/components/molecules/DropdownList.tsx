@@ -61,7 +61,9 @@ const StyledInput = styled(Input)`
 const DropdownList: React.FC<IDropdownList> = () => {
 
     const [isOpen, setOpen] = useState<boolean>(false);
-    const [isActive, setActive] = useState<string>("")
+    const [isActive, setActive] = useState<string>("");
+    const [navItems, setNavItems] = useState<{ name: string, to: string }[]>(routes);
+    const [inputValue, setInputValue] = useState<string>("");
 
     const handleOpen = () => setOpen(!isOpen)
 
@@ -69,6 +71,16 @@ const DropdownList: React.FC<IDropdownList> = () => {
         let formatedText = text.charAt(0).toUpperCase() + text.slice(1)
         setActive(formatedText)
     };
+
+    const handleInput = (ev: React.ChangeEvent<HTMLInputElement>) => {
+        setInputValue(ev.target.value);
+
+        if (inputValue === "") {
+            setNavItems(routes)
+        } else {
+            setNavItems(routes.filter(item => item.name.toLowerCase().includes(ev.target.value.toLowerCase())))
+        }
+    }
 
     useEffect(() => {
         const pathname: string = window.location.pathname.replace('/', '');
@@ -78,7 +90,7 @@ const DropdownList: React.FC<IDropdownList> = () => {
         } else {
             getActivePath(pathname)
         }
-    })
+    });
 
     return (
         <>
@@ -92,8 +104,8 @@ const DropdownList: React.FC<IDropdownList> = () => {
                 </StyledNavItem>
             </StyledNavigation>
             <StyledNavbarList isopen={isOpen} >
-                <StyledInput type="text" label="Search" location="navigation"/>
-                {isOpen && routes.map(item => (
+                <StyledInput type="text" label="Search" location="navigation" value={inputValue} fnChange={handleInput}/>
+                {isOpen && navItems.map(item => (
                     <StyledNavItem>
                         <SelectItem path={item.to} >{item.name}</SelectItem>
                     </StyledNavItem>

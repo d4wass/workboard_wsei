@@ -5,6 +5,7 @@ import Heading from 'components/molecules/Resume/Heading';
 import Work from 'components/molecules/Resume/Work';
 import Pagination from 'components/molecules/Resume/Pagination';
 import { withRouter, RouteComponentProps } from 'react-router';
+import WorkspaceResumeBtn from 'components/molecules/Resume/WorkspaceResumeBtn';
 
 interface ResumeType extends RouteComponentProps {
     children?: React.ReactNode,
@@ -111,6 +112,7 @@ const Resume = ({ loading, comments, users, location}: ResumeType) => {
     return (
         <StyledWrapper pathname={location.pathname}>
             <Heading handleInput={handleInput} inputValue={inputValue}/>
+            {location.pathname.includes('workspace') && <WorkspaceResumeBtn/>}
             <StyledContentWrapper>
                 {!loading && usersData.length > 0 ? (currentPosts.map((item) => (<Work data={item} user={usersData[item.postId - 1].userName} key={item.id} imageId={usersData[item.postId - 1].userId}/>))) : <h1>Loading</h1>}
                 <Pagination postsPerPage={postsPerPage} totalPosts={posts.length} paginate={paginate} nextPage={nextPage} prevPage={prevPage} />

@@ -9,14 +9,6 @@ import { Wrapper } from 'utils/Components';
 import styled from 'styled-components'
 import { AppState } from 'app/store/store';
 
-interface IHome {
-    children?: React.ReactNode,
-    lastestPublications: any,
-    loading: boolean,
-    users: any,
-    comments: any,
-}
-
 type TLastPublication = {
     userName: string,
     userImage: string,
@@ -33,9 +25,8 @@ const StyledWrapper = styled(Wrapper)`
 const Home = () => {
 
     const [lastestPublications, setLastestPublications] = useState<TLastPublication[]>([])
-
+    const [isPublicationsLoaded, setLoaded] = useState<boolean>(false)
     const dispatch = useDispatch()
-    const user = useSelector((state: AppState) => (state.user));
     const users = useSelector((state: AppState) => (state.users));
     const posts = useSelector((state: AppState) => (state.posts));
     const photos = useSelector((state: AppState) => (state.photos));
@@ -57,41 +48,28 @@ const Home = () => {
     }
 
     useEffect(() => {
-        dispatch(fetchDataUsers())
-            combineData()
+        const asyncDispach = async () => {
+            await dispatch(fetchDataUsers())
+            if (photos && posts && users) {
+                await combineData()
+                setLoaded(true);
+            } else {
+                console.log('dipsa')
+            }
+        };
+
+        asyncDispach()
     }, []);
 
     return (
         <SiteTemplate>
             <StyledWrapper>
-                {!loading && lastestPublications.length > 0 ? <LastestPublications lastestPublications={lastestPublications} /> : <h1>Loading</h1>}
+                {!isPublicationsLoaded ? <LastestPublications lastestPublications={lastestPublications} /> : <h1>Loading</h1>}
                 <Workspaces />
                 <Resume loading={loading} users={users} comments={comments}/>
             </StyledWrapper>
         </SiteTemplate>
     )
-};
-
-const mapDispatchToProps = (dispatch: any) => ({
-    fetchUserData: () => dispatch(fetchDataUsers())
-})
-
-const mapStateToProps = (state: any) => {
-
-    const { users, photos, posts, loading, comments } = state
-    let lastestPublications: Array<TLastPublication> = [];
-
-    users.forEach(
-        (item: any, index: number) => lastestPublications.push({
-            image: photos[index].url,
-            title: posts[index].title,
-            imageAlt: photos[index].title,
-            userName: item.name,
-            userImage: photos[index].url
-        })
-    );
-
-    return { lastestPublications, loading, comments, users };
 };
 
 export default Home;

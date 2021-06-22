@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { ProfileTableProposalData, ProfileTableInteralData, ProfileTableFeeData } from 'utils/ProfileSpecData';
 
 const StyledTable = styled.table`
-    margin-bottom: 20px;
+    margin: 20px;
 `;
 
 const StyledTableRow = styled.tr`

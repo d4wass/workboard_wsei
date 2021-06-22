@@ -20,8 +20,8 @@ const Sidebar: React.FC = () => (
     <StyledWrapper>
         <UserPanel />
         <StyledContentWrapper>
-            <SidebarBtn icon="Entites" content="Your Entities" />
-            <SidebarBtn icon="Atom" content="Ecosystem" />
+            <SidebarBtn icon="Entites" content="Your Entities" link="/entities"/>
+            <SidebarBtn icon="Atom" content="Ecosystem" link="/entities"/>
         </StyledContentWrapper>
     </StyledWrapper>
 )

@@ -95,8 +95,8 @@ const UserPanel = () => {
             </StyledContent>
             <StyledSpan/>
             <StyledContent>
-                <SidebarBtn content="Your Network" icon="Network" />
-                <SidebarBtn content="Your publications" icon="Publications" />
+                <SidebarBtn content="Your Network" icon="Network" link="/" />
+                <SidebarBtn content="Your publications" icon="Publications" link="/" />
             </StyledContent>
         </StyledWrapper>
     )
