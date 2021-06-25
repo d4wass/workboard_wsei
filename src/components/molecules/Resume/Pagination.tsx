@@ -1,5 +1,4 @@
-import React from 'react';
-import styled from 'styled-components';
+import styled, {css} from 'styled-components';
 
 type PaginationType = {
     postsPerPage: number,
@@ -9,9 +8,28 @@ type PaginationType = {
     nextPage: any
 }
 
-const StyledButton = styled.button`
+const StyledButton = styled.button<{prev?: string, next?: string}>`
+    font-weight: ${({theme}) => theme.font.weight.bold};
     padding: 10px 15px;
+    margin: 10px 5px;
     cursor: pointer;
+    border-radius: 50%;
+    border: none;
+    background-color: transparent;
+    transition: background-color ease-in-out .3s;
+
+    &:hover {
+        color: ${({theme}) => theme.color.primaryBtn};
+    }
+
+    ${({ prev, next }) => prev !== 'true' && next !== 'true' && css`
+        &:hover {
+            color: ${({theme}) => theme.color.primaryBtn};
+            background-color: rgba(42,63,157, 0.2);
+        }
+    `}
+
+
 `;
 
 const StyledList = styled.ul`
@@ -29,7 +47,7 @@ const Pagination = ({ postsPerPage, totalPosts, paginate, prevPage, nextPage}: P
         <nav>
             <StyledList>
                 <li>
-                    <StyledButton onClick={() => prevPage(pageNumbers.length)}>Prev</StyledButton>
+                    <StyledButton onClick={() => prevPage(pageNumbers.length)} prev="true">Prev</StyledButton>
                 </li>
                 {pageNumbers.map(number => (
                     <li key={number}>
@@ -39,7 +57,7 @@ const Pagination = ({ postsPerPage, totalPosts, paginate, prevPage, nextPage}: P
                     </li>
                 ))}
                 <li>
-                    <StyledButton onClick={() => nextPage(pageNumbers.length)}>next</StyledButton>
+                    <StyledButton onClick={() => nextPage(pageNumbers.length)} next="true">next</StyledButton>
                 </li>
             </StyledList>
         </nav>
