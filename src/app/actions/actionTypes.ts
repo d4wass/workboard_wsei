@@ -1,5 +1,4 @@
-import { ActionType } from 'typesafe-actions';
-import * as actions from './actions';
+
 
 export enum Constants {
     FETCH_DATA_REQUEST = 'FETCH_DATA_REQUEST',

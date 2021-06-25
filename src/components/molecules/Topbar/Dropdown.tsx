@@ -1,7 +1,7 @@
 import * as React from 'react';
 import styled from 'styled-components';
 import { Wrapper } from 'utils/Components';
-import DropdownList from 'components/molecules/DropdownList';
+import DropdownList from 'components/molecules/Topbar/DropdownList';
 
 const StyledWrapper = styled(Wrapper)`
     box-shadow: none;

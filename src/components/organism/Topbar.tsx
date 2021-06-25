@@ -2,9 +2,9 @@ import * as React from 'react';
 import styled from 'styled-components';
 import { Wrapper } from 'utils/Components';
 import Logo from 'components/atoms/Logo';
-import Dropdown from 'components/molecules/Dropdown';
-import Input from 'components/molecules/Input';
-import Notification from 'components/molecules/Notification'
+import Dropdown from 'components/molecules/Topbar/Dropdown';
+import Input from 'components/molecules/Topbar/Input';
+import Notification from 'components/molecules/Topbar/Notification'
 
 
 const StyledWrapper = styled(Wrapper)`

@@ -1,4 +1,4 @@
-import Workspace from 'components/molecules/Workspace';
+import Workspace from 'components/molecules/Workspace/Workspace';
 import * as React from 'react';
 import styled from 'styled-components';
 import { Wrapper, Title } from 'utils/Components';

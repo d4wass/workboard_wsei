@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { ProfileWrapper } from 'utils/Components';
 import { SpecificationData } from 'utils/ProfileSpecData'
@@ -24,36 +24,28 @@ type SpecificationElement = {
 
 const ProfileSpecification = () => {
     const [isEdited, setEdited] = useState<boolean>(false)
-    const [initialValues, setInitialValues] = useState<SpecificationElement[] | []>([])
+    const [initialValues, setInitialValues] = useState<SpecificationElement[]>(SpecificationData)
 
     const handleDelete = (e: React.MouseEvent<HTMLElement>) => {
-        let copyState = initialValues;
         let copyInitial: Array<{ id: number, content: string }[]> = [];
+        let copyState = initialValues
         const id = (e.target as Element).id
 
         copyState.forEach((item) => copyInitial.push(item.initialValue))
-
         copyInitial = copyInitial.map(arr => arr.filter(item => item.id !== Number(id)))
         copyState.forEach((item, index) => item.initialValue = copyInitial[index])
 
-
-        setInitialValues(copyState)
+        setInitialValues(copyState);
     }
 
     const handleAdd = (id: number) => {
         const selectedElement = initialValues.filter(item => item.id === id)[0];
         let copyState = initialValues
 
-        selectedElement.initialValue.push({ id: id + 10, content: '' })
+        selectedElement.initialValue.push({ id: id + 10, content: 'value' })
         copyState.filter(item => item.id !== id).push(selectedElement);
         setInitialValues(copyState)
     }
-
-    useEffect(() => {
-        if (initialValues.length === 0) {
-            setInitialValues(SpecificationData);
-        }
-    }, [initialValues])
 
     return (
         <StyledProfileWrapper>

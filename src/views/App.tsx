@@ -6,6 +6,7 @@ import People from 'views/People';
 import Publications from 'views/Publications';
 import ProfileView from 'views/ProfileView';
 import WorkspaceView from 'components/organism/WorkspaceView';
+import Admin from 'views/Admin';
 
 const App = () => (
   <Router>
@@ -16,7 +17,8 @@ const App = () => (
         <Route exact path="/people" component={People} />
         <Route exact path="/publications" component={Publications} />
         <Route exact path="/workspace/:id" component={WorkspaceView} />
-        <Route exact path="/profile" component={ProfileView}/>
+        <Route exact path="/profile" component={ProfileView} />
+        <Route exact path="/administration" component={Admin}/>
       </Switch>
     </MainTemplate>
   </Router>

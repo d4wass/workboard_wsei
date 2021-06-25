@@ -2,10 +2,10 @@ import * as React from 'react';
 import SiteTemplate from 'templates/SiteTemplate';
 
 
-const Publications: React.FC = () => (
+const Admin: React.FC = () => (
     <SiteTemplate>
-        <h1>Publications</h1>
+        <h1>Administration</h1>
     </SiteTemplate>
 );
 
-export default Publications;
+export default Admin;

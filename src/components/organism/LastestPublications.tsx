@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Wrapper, Title } from 'utils/Components';
-import Publication from 'components/molecules/Publication';
-import FullPublication from 'components/molecules/FullPublication';
+import Publication from 'components/molecules/LastestPublications/Publication';
+import FullPublication from 'components/molecules/LastestPublications/FullPublication';
 
 interface ILastestPublications {
     children?: React.ReactNode,

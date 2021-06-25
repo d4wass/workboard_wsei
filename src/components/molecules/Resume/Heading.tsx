@@ -1,7 +1,7 @@
 import * as React from 'react';
 import styled from 'styled-components';
 import { Wrapper, Title } from 'utils/Components';
-import Input from 'components/molecules/Input';
+import Input from 'components/molecules/Topbar/Input';
 import SelectResumeFilter from 'components/molecules/Resume/SelectResumeFilter';
 
 type HeadingType = {

@@ -3,7 +3,7 @@ export const routes = [
     {id:2, name: 'Publications', to: '/publications' },
     {id:3, name: 'People', to: '/people' },
     {id:4, name: 'Entities', to: '/entities' },
-    {id:5, name: 'Admininstration', to: '/admin' },
+    {id:5, name: 'Admininstration', to: '/administration' },
     {id:6, name: 'Profile', to: '/profile' },
 ]
 

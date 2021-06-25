@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import UserPanel from 'components/molecules/UserPanel';
+import UserPanel from 'components/molecules/Sidebar/UserPanel';
 import SidebarBtn from 'components/atoms/SidebarBtn';
 
 

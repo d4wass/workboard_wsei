@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import styled from 'styled-components';
-import SelectItem from 'components/atoms/SelectItem';
+import SelectItem from 'components/atoms/Dropdown/SelectItem';
 import { routes, workspaceRoutes, profileRoutes } from 'routes/routes';
 import NavItemSVG from 'components/atoms/NavItemSVG';
 import { ReactComponent as DownArrow } from 'assets/icons/arrow-down.svg';
@@ -59,7 +59,7 @@ const StyledNavItem = styled.li`
     cursor: pointer;
 `;
 
-const StyledDownArrow = styled(DownArrow)`
+const StyledDownArrow = styled(DownArrow)<TStyledNavigation>`
     transition: all 0.3s ease-in-out;
     transform: ${({isopen}) => isopen === 'false' ? 'rotateX(0deg)' : 'rotateX(180deg)'};
 `;
