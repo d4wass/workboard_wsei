@@ -1,9 +1,8 @@
-import React, {useState} from 'react';
+import {useState} from 'react';
 import { Wrapper } from 'utils/Components';
-import styled, {css} from 'styled-components';
+import styled from 'styled-components';
 
 const StyledWrapper = styled(Wrapper)`
-    border-radius: 10px;
     border: ${({ theme }) => `solid 1px ${theme.color.darkblue}`};
 `;
 
@@ -11,8 +10,7 @@ const StyledButton = styled.button<{active: boolean}>`
     border: none;
     padding: 10px;
     cursor: pointer;
-    background-color: ${({active}) => active ? 'red' : 'transparent'};
-
+    background-color: ${({active}) => active ? 'rgba(42,63,157, 0.2)' : 'transparent'};
 `;
 
 const ChangeViewBtn = ({ handleView }: { handleView: () => void }) => {
@@ -34,7 +32,6 @@ const ChangeViewBtn = ({ handleView }: { handleView: () => void }) => {
         <StyledWrapper>
             <StyledButton
                 onClick={() => {
-                    console.log()
                     handleView()
                     handleActive()
                 }}

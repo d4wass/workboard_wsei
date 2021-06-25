@@ -6,11 +6,11 @@ import SidebarBtn from 'components/atoms/SidebarBtn';
 import person from 'assets/person.jpg'
 import { NavLink } from 'react-router-dom';
 import { AppState } from 'app/store/store';
-import { fetchUsers } from 'app/actions/actions';
+import { createUser } from 'app/actions/actions';
 import { TUser } from 'app/reducers/stateTypes';
 
-interface IProfile extends TUser {
-    img: string
+type IContentStyled = {
+    center?: string
 }
 
 const StyledWrapper = styled(Wrapper)`
@@ -28,7 +28,7 @@ const StyledContent = styled(Wrapper)<IContentStyled>`
     box-shadow: none;
     width: 100%;
 
-    ${({ center }) => center && css`
+    ${({ center }) => center === 'true' && css`
         justify-content: center;
         padding: 10px;
         border-radius: 10px;
@@ -61,37 +61,45 @@ const StyledImg = styled.div<{image?: string}>`
     margin-bottom: 20px;
 `;
 
-interface IContentStyled {
-    center?: boolean
-}
-
 const UserPanel = () => {
-    const [profile, setProfile] = useState({} as IProfile)
+    const [profile, setProfile] = useState<any>();
+    const [isLoading, setLoading] = useState<boolean>(true)
+
     const dispatch = useDispatch()
     const user = useSelector((state: AppState) => (state.user));
     const photos = useSelector((state: AppState) => (state.photos))
+    const loading = useSelector((state: AppState) => (state.photos))
 
-    const createUserProfile = () => {
-        const image = photos.filter(photo => photo.id === user.id)[0]
-        const extendedUser: any = user;
-        extendedUser['img'] = image
-        console.log(image)
-        setProfile(extendedUser)
-    }
 
     useEffect(() => {
-        if (!photos.length) {
-            dispatch(fetchUsers())
-            createUserProfile()
+        dispatch(createUser())
+
+        if (user) {
+           setProfile(user)
         }
-    });
+        if (profile) {
+            setLoading(false)
+        }
+        if (window.location.pathname === '/profile') {
+            setLoading(true)
+        }
+    }, [dispatch, loading]);
 
     return (
         <StyledWrapper>
-            <StyledContent as={NavLink} to="/profile" center>
-                <StyledImg />
-                <UserTitle>{user.name}</UserTitle>
-                <StyledUserTitle>Inter - lkjlkjlkj</StyledUserTitle>
+            <StyledContent as={NavLink} to="/profile" center="true">
+                {
+                    isLoading ? <span>Loading...</span> : profile ? (
+                        <>
+                            <StyledImg image={photos[0].url}/>
+                            <UserTitle>{profile.name}</UserTitle>
+                            <StyledUserTitle>Inter - {profile.company.name}</StyledUserTitle>
+                        </>
+                    ) : (
+                        <span>Loading...</span>
+                    )
+                }
+
             </StyledContent>
             <StyledSpan/>
             <StyledContent>

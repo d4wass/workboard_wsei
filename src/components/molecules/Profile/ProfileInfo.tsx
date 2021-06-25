@@ -6,15 +6,14 @@ import ProfileData from 'components/atoms/Profile/ProfileData';
 import ProfileSaveBtn from 'components/atoms/Profile/ProfileSaveBtn';
 import { TUser } from 'app/reducers/stateTypes';
 
-const StyledContentWrapper = styled.div<{ column?: boolean, end?: boolean }>`
+const StyledContentWrapper = styled.div<{ end?: string }>`
     display: flex;
     justify-content: space-between;
     width: 100%;
-    align-items: ${({ end }) => end && 'flex-end'};
-    justify-content: ${({ end }) => end && 'flex-start'};
+    align-items: ${({ end }) => end === 'true' && 'flex-end'};
+    justify-content: ${({ end }) => end === 'true' && 'flex-start'};
     padding-bottom: 10px;
 `;
-
 
 
 type ProfileInfoType = {
@@ -28,7 +27,7 @@ const ProfileInfo = ({ user, fnChange }: ProfileInfoType) => {
     return (
         <ProfileWrapper>
             <StyledContentWrapper>
-                <StyledContentWrapper end>
+                <StyledContentWrapper end="true">
                     <ProfileImg image="https://via.placeholder.com/600/92c952" />
                     <ProfileData user={user} isEdited={isEdited} fnChange={fnChange}/>
                 </StyledContentWrapper>

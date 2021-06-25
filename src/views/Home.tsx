@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import SiteTemplate from 'templates/SiteTemplate';
 import LastestPublications from 'components/organism/LastestPublications'
@@ -9,64 +9,29 @@ import { Wrapper } from 'utils/Components';
 import styled from 'styled-components'
 import { AppState } from 'app/store/store';
 
-type TLastPublication = {
-    userName: string,
-    userImage: string,
-    imageAlt: string,
-    title: string,
-    image: string
-}
-
 const StyledWrapper = styled(Wrapper)`
     flex-direction: column;
     width: 80vw;
 `
 
 const Home = () => {
-
-    const [lastestPublications, setLastestPublications] = useState<TLastPublication[]>([])
-    const [isPublicationsLoaded, setLoaded] = useState<boolean>(false)
     const dispatch = useDispatch()
+    const user = useSelector((state: AppState) => (state.user))
     const users = useSelector((state: AppState) => (state.users));
-    const posts = useSelector((state: AppState) => (state.posts));
-    const photos = useSelector((state: AppState) => (state.photos));
     const comments = useSelector((state: AppState) => (state.comments));
     const loading = useSelector((state: AppState) => (state.loading));
-
-    const combineData = () => {
-        let stateData: Array<TLastPublication> = [];
-        users.forEach(
-            (item: any, index: number) => stateData.push({
-                image: photos[index].url,
-                title: posts[index].title,
-                imageAlt: photos[index].title,
-                userName: item.name,
-                userImage: photos[index].url
-            })
-        );
-        setLastestPublications(stateData)
-    }
+    const lastestPublications = useSelector((state: AppState) => (state.lastPublications))
 
     useEffect(() => {
-        const asyncDispach = async () => {
-            await dispatch(fetchDataUsers())
-            if (photos && posts && users) {
-                await combineData()
-                setLoaded(true);
-            } else {
-                console.log('dipsa')
-            }
-        };
-
-        asyncDispach()
-    }, []);
+        dispatch(fetchDataUsers())
+    },[dispatch]);
 
     return (
         <SiteTemplate>
             <StyledWrapper>
-                {!isPublicationsLoaded ? <LastestPublications lastestPublications={lastestPublications} /> : <h1>Loading</h1>}
+                <LastestPublications lastestPublications={lastestPublications} />
                 <Workspaces />
-                <Resume loading={loading} users={users} comments={comments}/>
+                <Resume loading={loading} users={users} comments={comments} user={user}/>
             </StyledWrapper>
         </SiteTemplate>
     )

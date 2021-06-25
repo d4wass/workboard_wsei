@@ -1,5 +1,5 @@
 import { Constants } from 'app/actions/actionTypes';
-import { TUser, TComment, TPhoto, TPost } from 'app/reducers/stateTypes';
+import { TUser, TComment, TPhoto, TPost, TLastPublication } from 'app/reducers/stateTypes';
 
 interface IinitialState {
     loading: boolean,
@@ -9,6 +9,7 @@ interface IinitialState {
     photos: Array<TPhoto>,
     posts: Array<TPost>,
     error: Array<any>
+    lastPublications: Array<TLastPublication>
 }
 
 type TAction = {
@@ -23,7 +24,8 @@ const initialState: IinitialState = {
     comments: [],
     photos: [],
     posts: [],
-    error: []
+    error: [],
+    lastPublications: []
 }
 
 export const rootReducer = (state: IinitialState = initialState, action: TAction): IinitialState => {
@@ -41,6 +43,7 @@ export const rootReducer = (state: IinitialState = initialState, action: TAction
                 comments: action.payload.comments,
                 photos: action.payload.photos,
                 posts: action.payload.posts,
+                lastPublications: action.payload.lastPublications,
                 loading: false
             }
         case Constants.FETCH_DATA_FAILURE:
@@ -68,6 +71,23 @@ export const rootReducer = (state: IinitialState = initialState, action: TAction
                 loading: false,
                 error: [...state.error, action.payload.error],
             };
+            case Constants.FETCH_USER_REQUEST:
+                return {
+                    ...state,
+                    loading: true
+                }
+            case Constants.FETCH_USER_SUCCESS:
+                return {
+                    ...state,
+                    user: action.payload.user,
+                    loading: false
+                }
+            case Constants.FETCH_USER_FAILURE:
+                return {
+                    ...state,
+                    loading: false,
+                    error: [...state.error, action.payload.error],
+                };
         default:
             return state;
     }

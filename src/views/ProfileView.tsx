@@ -4,10 +4,9 @@ import styled from 'styled-components';
 import { Wrapper } from 'utils/Components';
 import ProfileInfo from 'components/molecules/Profile/ProfileInfo';
 import ProfileBtn from 'components/molecules/Profile/ProfileBtn';
-import { fetchUsers } from 'app/actions/actions';
+import { createUser } from 'app/actions/actions';
 import { AppState } from 'app/store/store';
 import SiteTemplate from 'templates/SiteTemplate';
-import { TUser } from 'app/reducers/stateTypes';
 import ProfileSpecification from 'components/molecules/Profile/ProfileSpecification';
 import PanelInformation from 'components/molecules/Profile/PanelInformation';
 import ProfileTableSection from 'components/organism/ProfileTableSection';
@@ -24,19 +23,21 @@ const StyledWrapper = styled(Wrapper)`
 
 
 const ProfileView = () => {
-
     const user = useSelector((state: AppState) => (state.user));
     const photos = useSelector((state: AppState) => (state.photos))
+    const loading = useSelector((state: AppState) => (state.photos))
 
-    const [profile, setProfile] = useState<TUser>(user)
+
+    const [profile, setProfile] = useState<any>({})
     const [inputValue, setInputValue] = useState<string>("")
+    const [isLoading, setLoading] = useState<boolean>(true)
+
     const dispatch = useDispatch()
 
     const editProfile = (e: React.ChangeEvent<HTMLInputElement>) => {
         let copyProfile = profile
         const { name, value }: { name: string, value: string } = e.target
 
-        console.log(copyProfile)
 
         if (name === 'city') {
             setInputValue(copyProfile['address'].city)
@@ -54,17 +55,20 @@ const ProfileView = () => {
     }
 
     useEffect(() => {
-        if (!photos.length) {
-            dispatch(fetchUsers())
-            setProfile(user)
+        dispatch(createUser())
+        if (user) {
+           setProfile(user)
         }
-    });
+        if (profile) {
+            setLoading(false)
+        }
+    }, [dispatch, loading])
 
     return (
         <SiteTemplate>
             <StyledWrapper>
                     <ProfileBtn/>
-                    <ProfileInfo user={profile} fnChange={editProfile} />
+                    {isLoading ? <span>Loading...</span> : <ProfileInfo user={profile} fnChange={editProfile} />}
                 <ProfileSpecification />
                 <PanelInformation />
                 <ProfileTableSection />

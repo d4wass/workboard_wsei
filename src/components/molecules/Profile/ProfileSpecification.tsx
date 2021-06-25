@@ -24,8 +24,7 @@ type SpecificationElement = {
 
 const ProfileSpecification = () => {
     const [isEdited, setEdited] = useState<boolean>(false)
-    const [initialValues, setInitialValues] = useState<SpecificationElement[]>(SpecificationData)
-    const [editedValues, setEditedValues] = useState<SpecificationElement[] | []>([])
+    const [initialValues, setInitialValues] = useState<SpecificationElement[] | []>([])
 
     const handleDelete = (e: React.MouseEvent<HTMLElement>) => {
         let copyState = initialValues;
@@ -37,29 +36,37 @@ const ProfileSpecification = () => {
         copyInitial = copyInitial.map(arr => arr.filter(item => item.id !== Number(id)))
         copyState.forEach((item, index) => item.initialValue = copyInitial[index])
 
-        setEditedValues(copyState)
+
+        setInitialValues(copyState)
+    }
+
+    const handleAdd = (id: number) => {
+        const selectedElement = initialValues.filter(item => item.id === id)[0];
+        let copyState = initialValues
+
+        selectedElement.initialValue.push({ id: id + 10, content: '' })
+        copyState.filter(item => item.id !== id).push(selectedElement);
+        setInitialValues(copyState)
     }
 
     useEffect(() => {
-        if (editedValues.length === 0) {
-            setInitialValues(SpecificationData)
-            console.log('poszedl render if')
-        } else {
-            setInitialValues(editedValues)
-            console.log('poszedl render else')
+        if (initialValues.length === 0) {
+            setInitialValues(SpecificationData);
         }
-    })
+    }, [initialValues])
 
     return (
         <StyledProfileWrapper>
             <StyledContentWrapper>
                 {initialValues.map((item: SpecificationElement) => (
                     <ProfileSpecParagraph
+                        key={item.id}
                         value={item.initialValue}
                         spanContent={item.spanContent}
                         isEdited={isEdited}
                         id={item.id}
                         handleDelete={handleDelete}
+                        handleAdd={() => handleAdd(item.id)}
                     />
                     ))}
             </StyledContentWrapper>

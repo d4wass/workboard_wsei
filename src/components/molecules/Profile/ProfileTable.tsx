@@ -31,12 +31,12 @@ const ProfileTable = ({tableData}: {tableData: typeof ProfileTableProposalData |
     <StyledTable>
         <thead>
             <StyledTableRow>
-                {tableData.map(item => <StyledTableHead>{item.titleColumn}</StyledTableHead>)}
+                {tableData.map((item, index) => <StyledTableHead key={index}>{item.titleColumn}</StyledTableHead>)}
             </StyledTableRow>
         </thead>
         <tbody>
             <StyledTableRow>
-                {tableData.map(item => <StyledTableCell>{item.rows.map(item => <StyledParagraph>{item}</StyledParagraph>)}</StyledTableCell>)}
+                {tableData.map((item, index) => <StyledTableCell key={index}>{item.rows.map((item, index) => <StyledParagraph key={index}>{item}</StyledParagraph>)}</StyledTableCell>)}
             </StyledTableRow>
         </tbody>
     </StyledTable>

@@ -31,34 +31,6 @@ interface IDataSuccess {
     payload: any// tutaj bedzie w zaleznosci od potrzebnego zapytania type dla obiektu ktory zwracany jest do payload
 }
 
-interface IUsersRequest {
-    type: typeof Constants.FETCH_USERS_REQUEST
-}
-
-interface IUsersFailure {
-    type: typeof Constants.FETCH_USERS_FAILURE,
-    payload: any
-}
-
-interface IUsersSuccess {
-    type: typeof Constants.FETCH_USERS_SUCCESS,
-    payload: any// tutaj bedzie w zaleznosci od potrzebnego zapytania type dla obiektu ktory zwracany jest do payload
-}
-
-interface IUserRequest {
-    type: typeof Constants.FETCH_USER_REQUEST
-}
-
-interface IUserFailure {
-    type: typeof Constants.FETCH_USER_FAILURE,
-    payload: any
-}
-
-interface IUserSuccess {
-    type: typeof Constants.FETCH_USER_SUCCESS,
-    payload: any// tutaj bedzie w zaleznosci od potrzebnego zapytania type dla obiektu ktory zwracany jest do payload
-}
-
 
 
 

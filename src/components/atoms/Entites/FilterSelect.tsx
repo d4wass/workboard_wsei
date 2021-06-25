@@ -66,6 +66,18 @@ const optionsFilterNegation: Options[] = [
     },
 ]
 
+const optionsResumeFilter: Options[] = [
+    {
+        name: 'All Items',
+        value: 'All Items'
+    },
+    {
+        name: 'User Items',
+        value: 'User Items'
+    }
+]
+
+
 type FilterSelectType = {
     handleSelectFn: (option: Options, filterType: string) => void,
     filterType: string
@@ -117,6 +129,18 @@ const FilterSelect = ({handleSelectFn, filterType} : FilterSelectType) => {
                 <StyledSelect
                     value={option}
                     options={optionsFilterNegation}
+                    getOptionLabel={(option: Options) => option.name}
+                    getOptionValue={(option: Options) => option.value}
+                    onChange={(option: Options) => {
+                        handleChange({name: option.name, value: option.value})
+                        handleSelectFn(option, filterType)
+                    }}
+                />
+            }
+            {filterType === 'resume' &&
+                <StyledSelect
+                    value={option}
+                    options={optionsResumeFilter}
                     getOptionLabel={(option: Options) => option.name}
                     getOptionValue={(option: Options) => option.value}
                     onChange={(option: Options) => {

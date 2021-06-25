@@ -16,21 +16,21 @@ const StyledWrapper = styled(Wrapper)`
     width: 100%;
 `;
 
-const StyledContentWrapper = styled.div<{heading?: boolean, list?: boolean}>`
+const StyledContentWrapper = styled.div<{heading?: string, list?: string}>`
     width: 100%;
 
-    ${({ list }) => list && css`
+    ${({ list }) => list === 'true' && css`
         display: flex;
         flex-direction: column;
     `}
 
-    ${({ list }) => !list && css`
+    ${({ list }) => !(list === 'true') && css`
         display: grid;
         grid-template-columns: 1fr 1fr 1fr;
         grid-template-rows: 1fr;
     `}
 
-    ${({ heading }) => heading && css`
+    ${({ heading }) => heading === 'true' && css`
         display: flex;
         justify-content: space-between;
         padding-bottom: 20px;
@@ -46,7 +46,6 @@ const Entities = () => {
         dispatch(fetchUsers())
     }, [dispatch]);
 
-    // const {users, photos} = useSelector<AppState, IUsersRed & IPhotos>((state: AppState) => ({...state.users, ...state.photos}))
     const users = useSelector((state: AppState) => state.users)
     const photos = useSelector((state: AppState) => state.photos)
     const userItem = users.map((user: TUser) => (<EntityItem user={user} key={user.id} photoUrl={photos[user.id - 1].url} />))
@@ -56,12 +55,12 @@ const Entities = () => {
     return (
         <SiteTemplate>
             <StyledWrapper>
-                <StyledContentWrapper heading>
+                <StyledContentWrapper heading="true">
                     <Title>Entities</Title>
                     <ChangeViewBtn handleView={handleView} />
                 </StyledContentWrapper>
                 <EntitiesFilter/>
-                <StyledContentWrapper list={isList}>
+                <StyledContentWrapper list={isList.toString()}>
                     {userItem}
                 </StyledContentWrapper>
             </StyledWrapper>

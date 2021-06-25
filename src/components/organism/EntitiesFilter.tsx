@@ -1,5 +1,3 @@
-import FilterButton from 'components/atoms/Entites/FilterBtn';
-import FilterSelect from 'components/atoms/Entites/FilterSelect'
 import {useState} from 'react';
 import styled from 'styled-components';
 import { Wrapper } from 'utils/Components';

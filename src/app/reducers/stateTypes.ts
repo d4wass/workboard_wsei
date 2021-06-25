@@ -44,3 +44,11 @@ export type TPost = {
     title: string,
     body: string
 }
+
+export type TLastPublication = {
+  userName: string,
+  userImage: string,
+  imageAlt: string,
+  title: string,
+  image: string
+}

@@ -1,7 +1,7 @@
-import axios, {AxiosResponse, AxiosStatic} from 'axios';
-import { AnyAction, Dispatch } from 'redux';
-import { FetchDispatchType, Constants } from 'app/actions/actionTypes'
-
+import axios, {AxiosResponse} from 'axios';
+import { Dispatch } from 'redux';
+import { Constants } from 'app/actions/actionTypes'
+import { TLastPublication } from 'app/reducers/stateTypes';
 
 
 export const fetchDataUsers = () => (dispatch: Dispatch) => {
@@ -19,6 +19,16 @@ export const fetchDataUsers = () => (dispatch: Dispatch) => {
                 const photos = responses[1].data;
                 const posts = responses[2].data;
                 const comments = responses[3].data;
+                let lastPublications: Array<TLastPublication> = [];
+
+                users.forEach(
+                    (item: any, index: number) => lastPublications.push({
+                        image: photos[index].url,
+                        title: posts[index].title,
+                        imageAlt: photos[index].title,
+                        userName: item.name,
+                        userImage: photos[index].url
+                    }))
 
                 dispatch({
                     type: Constants.FETCH_DATA_SUCCESS,
@@ -26,7 +36,8 @@ export const fetchDataUsers = () => (dispatch: Dispatch) => {
                         users,
                         photos,
                         posts,
-                        comments
+                        comments,
+                        lastPublications
                     }
                 })
             })
@@ -73,7 +84,25 @@ export const fetchUsers = () => (dispatch: Dispatch) => {
         })
 }
 
-export const setUserProfile = () => (dispatch: Dispatch) => {
-    // dispatch({type: Constants.})
+
+export const createUser = () => (dispatch: Dispatch) => {
+    dispatch({ type: Constants.FETCH_USER_REQUEST });
+    return axios.get('https://jsonplaceholder.typicode.com/users')
+        .then((response: AxiosResponse<any>) => {
+                const user = response.data[0];
+
+                dispatch({
+                    type: Constants.FETCH_USER_SUCCESS,
+                    payload: {user}
+                })
+        })
+        .catch((error: any) => {
+            dispatch({
+                type: Constants.FETCH_USER_FAILURE,
+                payload: {
+                    data: error
+                }
+            })
+        })
 }
 

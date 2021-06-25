@@ -1,8 +1,7 @@
-import * as React from 'react';
 import styled from 'styled-components';
 import UserPanel from 'components/molecules/UserPanel';
 import SidebarBtn from 'components/atoms/SidebarBtn';
-import { NavLink } from 'react-router-dom';
+
 
 const StyledWrapper = styled.div`
     width: 20vw;
@@ -16,7 +15,7 @@ const StyledContentWrapper = styled.div`
 `
 
 
-const Sidebar: React.FC = () => (
+const Sidebar = () => (
     <StyledWrapper>
         <UserPanel />
         <StyledContentWrapper>

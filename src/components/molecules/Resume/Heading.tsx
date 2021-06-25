@@ -2,10 +2,12 @@ import * as React from 'react';
 import styled from 'styled-components';
 import { Wrapper, Title } from 'utils/Components';
 import Input from 'components/molecules/Input';
+import SelectResumeFilter from 'components/molecules/Resume/SelectResumeFilter';
 
 type HeadingType = {
-    handleInput?: any,
-    inputValue?: string
+    handleInput: (ev: React.ChangeEvent<HTMLInputElement>) => void,
+    handleSelect: (option: {name: string, value: string}) => void,
+    inputValue: string
 }
 
 const StyledWrapper = styled(Wrapper)`
@@ -29,11 +31,12 @@ const StyledInput = styled(Input)`
     position: static;
 `;
 
-const Heading = ({ handleInput, inputValue }: HeadingType) => (
+const Heading = ({ handleInput, inputValue, handleSelect }: HeadingType) => (
     <StyledWrapper>
         <StyledTitle>Resume your work</StyledTitle>
         <StyledContentWrapper>
             <StyledInput label="Filter by title" type="text" value={inputValue} fnChange={handleInput} />
+            <SelectResumeFilter handleSelectFn={handleSelect}/>
         </StyledContentWrapper>
     </StyledWrapper>
 );

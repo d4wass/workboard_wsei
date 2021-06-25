@@ -7,11 +7,13 @@ import Pagination from 'components/molecules/Resume/Pagination';
 import { withRouter, RouteComponentProps } from 'react-router';
 import WorkspaceResumeBtn from 'components/molecules/Resume/WorkspaceResumeBtn';
 
+
 interface ResumeType extends RouteComponentProps {
     children?: React.ReactNode,
     loading: boolean,
     comments: any[],
-    users: any[]
+    users: any[],
+    user: any
 }
 
 type CombineArrayType = {
@@ -38,11 +40,12 @@ const StyledContentWrapper = styled(Wrapper)`
     flex-direction: column;
 `
 
-const Resume = ({ loading, comments, users, location}: ResumeType) => {
+const Resume = ({ loading, comments, users, location, user}: ResumeType) => {
 
     const [usersData, setUsersData] = useState<CombineArrayType[]>([]);
     const [posts, setPosts] = useState<WorkDataType[]>([]);
     const [inputValue, setInputValue] = useState<string>("");
+    const [selectValue, setSelectValue] = useState<string>("All Items")
 
     const [currentPage, setCurrentPage] = useState<number>(1);
     const [postsPerPage] = useState<number>(5);
@@ -50,6 +53,7 @@ const Resume = ({ loading, comments, users, location}: ResumeType) => {
     const indexOflastPost = currentPage * postsPerPage;
     const indexOfFirstPost = indexOflastPost - postsPerPage;
     const [currentPosts, setCurrentPosts] = useState<WorkDataType[]>([]);
+
 
     //Change page
     const paginate = (pageNumber: number) => {
@@ -76,18 +80,24 @@ const Resume = ({ loading, comments, users, location}: ResumeType) => {
     //HandleInput
     const handleInput = (ev: React.ChangeEvent<HTMLInputElement>) => {
         setInputValue(ev.target.value);
-        const filteredPosts = posts.filter(item => {
+        const post = posts.filter(item => {
             if (inputValue === "") {
                 return item;
             } else if (item.name.toLowerCase().includes(inputValue.toLowerCase())) {
                 return item;
             }
         });
-        if (filteredPosts.length >= 5) {
-            setCurrentPosts(filteredPosts.slice(indexOfFirstPost, indexOflastPost))
+
+        if (currentPosts.length >= 5) {
+            setCurrentPosts(post.slice(indexOfFirstPost, indexOflastPost))
         } else {
-            setCurrentPosts(filteredPosts)
+            setCurrentPosts(post)
         }
+    }
+
+    //Handle Select
+    const handleSelect = (option: {name: string, value: string}) => {
+        setSelectValue(option.name)
     }
 
     useEffect(() => {
@@ -107,11 +117,15 @@ const Resume = ({ loading, comments, users, location}: ResumeType) => {
         setUsersData(combineArray);
         setPosts(combinePost);
         setCurrentPosts(combinePost.slice(indexOfFirstPost, indexOflastPost));
-    }, [loading, comments, users, indexOfFirstPost, indexOflastPost]);
+    }, [comments, users, indexOfFirstPost, indexOflastPost]);
 
     return (
         <StyledWrapper pathname={location.pathname}>
-            <Heading handleInput={handleInput} inputValue={inputValue}/>
+            <Heading
+                handleInput={handleInput}
+                inputValue={inputValue}
+                handleSelect={handleSelect}
+            />
             {location.pathname.includes('workspace') && <WorkspaceResumeBtn/>}
             <StyledContentWrapper>
                 {!loading && usersData.length > 0 ? (currentPosts.map((item) => (<Work data={item} user={usersData[item.postId - 1].userName} key={item.id} imageId={usersData[item.postId - 1].userId}/>))) : <h1>Loading</h1>}

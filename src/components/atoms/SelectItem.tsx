@@ -1,4 +1,3 @@
-import * as React from 'react';
 import styled from 'styled-components';
 import NavItemSVG from 'components/atoms/NavItemSVG'
 import { Paragraph, Wrapper } from 'utils/Components';

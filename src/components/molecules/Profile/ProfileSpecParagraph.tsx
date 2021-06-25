@@ -1,13 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import SpecificationInput from 'components/molecules/Profile/SpecificationInput';
 import {ReactComponent as Plus} from 'assets/icons/plus-solid.svg'
+import { useEffect } from 'react';
+import { useStore } from 'react-redux';
 
 type ParagraphType = {
     spanContent: string,
     isEdited?: boolean,
     id: number,
     handleDelete: (e: React.MouseEvent<HTMLElement>) => void,
+    handleAdd: () => void,
     value: {id: number, content: string}[]
 }
 
@@ -53,7 +56,11 @@ const StyledButton = styled.button`
     cursor: pointer;
 `;
 
-const ProfileSpecParagraph = ({value, spanContent, isEdited, handleDelete }: ParagraphType) => {
+const ProfileSpecParagraph = ({ value, spanContent, isEdited, handleDelete, handleAdd }: ParagraphType) => {
+    const [values, setValues] = useState<{id: number, content: string }[]>(value)
+    useEffect(() => {
+        setValues(value)
+    }, [value])
 
     return (
         <>
@@ -62,14 +69,18 @@ const ProfileSpecParagraph = ({value, spanContent, isEdited, handleDelete }: Par
                     <StyledWrapper>
                         <StyledSpan>{spanContent}</StyledSpan>
                         <StyledContentWrapper>
-                            {value.map((item: { id: number, content: string }) => <SpecificationInput value={item.content} id={`${item.id}`} handleRemoveBtn={handleDelete}/>)}
-                            <StyledButton><StyledPlus/></StyledButton>
+                            {values.map((item: { id: number, content: string }) =>
+                                <>
+                                    <SpecificationInput key={item.id} value={item.content} id={`${item.id}`} handleRemoveBtn={handleDelete} />
+                                </>
+                            )}
+                            <StyledButton onClick={handleAdd}><StyledPlus/></StyledButton>
                         </StyledContentWrapper>
                     </StyledWrapper> :
                     <StyledWrapper>
                         <StyledSpan>{spanContent}</StyledSpan>
                         <StyledContentWrapper>
-                            {value.map(item => <StyledParagraph>{item.content}</StyledParagraph>)}
+                            {value.map((item, index) => <StyledParagraph key={index}>{item.content}</StyledParagraph>)}
                         </StyledContentWrapper>
                     </StyledWrapper>
             }

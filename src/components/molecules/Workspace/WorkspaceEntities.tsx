@@ -39,7 +39,7 @@ const StyledTitle = styled(Title)`
 const WorkspaceEntities = () => {
     const [isOpen, setOpenState] = useState(true);
     const dispatch = useDispatch();
-    const comments = useSelector((state: AppState) => (state.comments));
+    const user = useSelector((state: AppState) => (state.user));    const comments = useSelector((state: AppState) => (state.comments));
     const users = useSelector((state: AppState) => (state.users));
     const isLoading = useSelector((state: AppState) => (state.loading))
 
@@ -60,7 +60,7 @@ const WorkspaceEntities = () => {
                     {WorkspaceEntitiesData.map(({ id, title, content, link }) => <WorkspaceEntityItem key={id} title={title} content={content} link={link}/>)}
             </StyledContentEntityWrapper>
             }
-            <Resume loading={isLoading} comments={comments} users={users}/>
+            <Resume loading={isLoading} comments={comments} users={users} user={user}/>
         </StyledWrapper>
     );
 };
