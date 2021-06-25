@@ -1,3 +1,4 @@
+
 export enum Constants {
     FETCH_DATA_REQUEST = 'FETCH_DATA_REQUEST',
     FETCH_DATA_SUCCESS = 'FETCH_DATA_SUCCESS',
@@ -25,7 +26,7 @@ interface IDataFailure {
 
 interface IDataSuccess {
     type: typeof Constants.FETCH_DATA_SUCCESS,
-    payload: any// tutaj bedzie w zaleznosci od potrzebnego zapytania type dla obiektu ktory zwracany jest do payload
+    payload: any
 }
 
 

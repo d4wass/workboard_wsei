@@ -45,7 +45,7 @@ const Resume = ({ loading, comments, users, location, user}: ResumeType) => {
     const [usersData, setUsersData] = useState<CombineArrayType[]>([]);
     const [posts, setPosts] = useState<WorkDataType[]>([]);
     const [inputValue, setInputValue] = useState<string>("");
-    const [selectValue, setSelectValue] = useState<string>("All Items")
+    const [, setSelectValue] = useState<string>("All Items")
 
     const [currentPage, setCurrentPage] = useState<number>(1);
     const [postsPerPage] = useState<number>(5);

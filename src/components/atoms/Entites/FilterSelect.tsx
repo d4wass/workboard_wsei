@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import styled from 'styled-components';
-import Select, { ValueType } from 'react-select';
+import Select from 'react-select';
 
 
 const StyledSelect = styled(Select)`
@@ -8,9 +8,6 @@ const StyledSelect = styled(Select)`
     margin: 0 20px;
 `;
 
-const StyledWrapper = styled.div`
-    display: flex;
-`;
 
 type Options = {
     name: string,

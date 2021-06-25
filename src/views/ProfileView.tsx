@@ -24,12 +24,11 @@ const StyledWrapper = styled(Wrapper)`
 
 const ProfileView = () => {
     const user = useSelector((state: AppState) => (state.user));
-    const photos = useSelector((state: AppState) => (state.photos))
     const loading = useSelector((state: AppState) => (state.photos))
 
 
     const [profile, setProfile] = useState<any>({})
-    const [inputValue, setInputValue] = useState<string>("")
+    const [, setInputValue] = useState<string>("")
     const [isLoading, setLoading] = useState<boolean>(true)
 
     const dispatch = useDispatch()

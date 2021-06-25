@@ -1,4 +1,3 @@
-import React, { useState } from 'react';
 import styled from 'styled-components';
 import { ReactComponent as Edit } from 'assets/icons/edit-regular.svg';
 import { ReactComponent as Save } from 'assets/icons/save-regular.svg';

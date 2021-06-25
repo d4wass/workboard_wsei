@@ -7,7 +7,6 @@ import person from 'assets/person.jpg'
 import { NavLink } from 'react-router-dom';
 import { AppState } from 'app/store/store';
 import { createUser } from 'app/actions/actions';
-import { TUser } from 'app/reducers/stateTypes';
 
 type IContentStyled = {
     center?: string

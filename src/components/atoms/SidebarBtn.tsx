@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import { Wrapper, Paragraph } from 'utils/Components';
+import { Paragraph } from 'utils/Components';
 import Button from 'components/atoms/Button';
 import { ReactComponent as Network } from 'assets/icons/people.svg';
 import { ReactComponent as Publications } from 'assets/icons/file-alt-solid.svg';

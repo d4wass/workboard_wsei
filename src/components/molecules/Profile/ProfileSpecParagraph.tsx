@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import SpecificationInput from 'components/molecules/Profile/SpecificationInput';
 import {ReactComponent as Plus} from 'assets/icons/plus-solid.svg'
 import { useEffect } from 'react';
-import { useStore } from 'react-redux';
 
 type ParagraphType = {
     spanContent: string,

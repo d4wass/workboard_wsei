@@ -17,7 +17,7 @@ type EntityFilterType = {
 
 const EntityFilter = ({removeFilter, filterType, idFilter}: EntityFilterType) => {
 
-    const [selectedFilter, setSelectedFilter] = useState<string>('');
+    const [, setSelectedFilter] = useState<string>('');
     const [selectedFilterStatus, setStatusFilter] = useState<string>('');
 
     const handleSelect = (option: {name: string, value: string}, filterType: string) => {

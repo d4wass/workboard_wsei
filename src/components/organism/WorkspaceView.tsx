@@ -39,7 +39,7 @@ const WorkspaceView = () => {
             setContent(getData.description)
         }
 
-    })
+    }, [state, id])
 
     return (
         <SiteTemplate>
