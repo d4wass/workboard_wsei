@@ -15,8 +15,8 @@ const StyledButton = styled.button<{active: boolean}>`
 
 const ChangeViewBtn = ({ handleView }: { handleView: () => void }) => {
 
-    const [isMosaicActive, setMosaicActive] = useState(true);
-    const [isListActive, setListActive] = useState(false);
+    const [isMosaicActive, setMosaicActive] = useState<boolean>(true);
+    const [isListActive, setListActive] = useState<boolean>(false);
 
     const handleActive = () => {
         if (isMosaicActive) {

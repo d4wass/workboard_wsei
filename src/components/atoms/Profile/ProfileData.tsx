@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import ProfileInput from 'components/atoms/Profile/ProfileInput';
 import {Paragraph, Wrapper} from 'utils/Components'
-import { TUser } from 'app/reducers/stateTypes';
+import { Users } from 'utils/ProfileTypes';
 
 const StyledWrapper = styled(Wrapper)`
     height: 100%;
@@ -21,9 +21,9 @@ const StyledParagraph = styled(Paragraph)`
 `;
 
 type ProfileDataType = {
-    fnChange: any,
+    fnChange: (e: React.ChangeEvent<HTMLInputElement>) => void,
     isEdited: boolean,
-    user: TUser
+    user: Users
 }
 
 const ProfileData = ({user, fnChange, isEdited}: ProfileDataType) => {
@@ -33,8 +33,7 @@ const ProfileData = ({user, fnChange, isEdited}: ProfileDataType) => {
             <StyledContentWrapper>
                 {isEdited ? <ProfileInput value={name} name="name" fnChange={fnChange}/> : <StyledParagraph>{name}</StyledParagraph>}
                 {isEdited ? <ProfileInput value={company.name} name="company" fnChange={fnChange}/> : <StyledParagraph>{company.name}</StyledParagraph>}
-                {isEdited ? <ProfileInput value={address.city} name="city" fnChange={fnChange}/> : <StyledParagraph>{address.city}</StyledParagraph>}
-                {/* tutaj musisz dać selecta z opcjami wyboru stanowiska */}
+                {isEdited ? <ProfileInput value={address.city} name="city" fnChange={fnChange} /> : <StyledParagraph>{address.city}</StyledParagraph>}
             </StyledContentWrapper>
             <StyledContentWrapper contact>
                 {isEdited ? <ProfileInput value={email} name="email" fnChange={fnChange}/> :  <StyledParagraph>{email}</StyledParagraph>}

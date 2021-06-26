@@ -6,28 +6,14 @@ import Work from 'components/molecules/Resume/Work';
 import Pagination from 'components/molecules/Resume/Pagination';
 import { withRouter, RouteComponentProps } from 'react-router';
 import WorkspaceResumeBtn from 'components/molecules/Resume/WorkspaceResumeBtn';
-
+import { CombineArrayType, WorkDataType, Comments, Users } from 'utils/ResumeTypes';
 
 interface ResumeType extends RouteComponentProps {
     children?: React.ReactNode,
     loading: boolean,
-    comments: any[],
-    users: any[],
-    user: any
-}
-
-type CombineArrayType = {
-    userName: string,
-    userId: number,
-    posts: WorkDataType[]
-}
-
-type WorkDataType = {
-    postId: number,
-    id: number,
-    name: string,
-    email: string,
-    body: string
+    comments: Comments[],
+    users: Users[],
+    user: Users
 }
 
 const StyledWrapper = styled(Wrapper)<{pathname?: string}>`
@@ -80,7 +66,7 @@ const Resume = ({ loading, comments, users, location, user}: ResumeType) => {
     //HandleInput
     const handleInput = (ev: React.ChangeEvent<HTMLInputElement>) => {
         setInputValue(ev.target.value);
-        const post = posts.filter(item => {
+        const post = posts.filter((item) => {
             if (inputValue === "") {
                 return item;
             } else if (item.name.toLowerCase().includes(inputValue.toLowerCase())) {

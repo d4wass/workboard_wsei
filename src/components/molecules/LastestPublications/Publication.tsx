@@ -2,7 +2,6 @@ import styled, {css} from 'styled-components'
 import { Wrapper, Title } from 'utils/Components';
 
 interface TPublication {
-    children?: any,
     fullPublication?: boolean,
     image: string,
     title: string,

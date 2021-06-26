@@ -1,9 +1,7 @@
-import React from 'react';
 import styled, {css} from 'styled-components'
 import { Wrapper, Title } from 'utils/Components';
 
 interface TFullPublication {
-    children?: any,
     fullPublication?: boolean,
     image: string,
     title: string,

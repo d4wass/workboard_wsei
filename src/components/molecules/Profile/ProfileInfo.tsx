@@ -4,7 +4,7 @@ import { ProfileWrapper } from 'utils/Components';
 import ProfileImg from 'components/atoms/Profile/ProfileImg';
 import ProfileData from 'components/atoms/Profile/ProfileData';
 import ProfileSaveBtn from 'components/atoms/Profile/ProfileSaveBtn';
-import { TUser } from 'app/reducers/stateTypes';
+import { Users } from 'utils/ProfileTypes';
 
 const StyledContentWrapper = styled.div<{ end?: string }>`
     display: flex;
@@ -17,8 +17,8 @@ const StyledContentWrapper = styled.div<{ end?: string }>`
 
 
 type ProfileInfoType = {
-    user: TUser
-    fnChange: any
+    user: Users
+    fnChange: (e: React.ChangeEvent<HTMLInputElement>) => void
 }
 
 const ProfileInfo = ({ user, fnChange }: ProfileInfoType) => {

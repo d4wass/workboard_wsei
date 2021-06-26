@@ -10,7 +10,6 @@ const StyledWrapper = styled.div`
     width: 45px;
     background-color: ${({theme}) => theme.color.iconGrey};
     border-radius: 50%;
-    /* padding: 10px; */
     margin-left: 10px;
 `
 

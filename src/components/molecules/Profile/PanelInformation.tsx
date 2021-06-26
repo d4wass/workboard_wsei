@@ -25,7 +25,6 @@ const StyledWrapper = styled.div`
 
 const StyledContentWrapper = styled.div`
     display: flex;
-    flex-dire
 `;
 
 const StyledParagraph = styled.p`

@@ -4,7 +4,7 @@ import styled from 'styled-components';
 type ProfileInputType = {
     value: string,
     name?: string,
-    fnChange?: any
+    fnChange: (e: React.ChangeEvent<HTMLInputElement>) => void
 }
 
 const StyledInput = styled.input`
